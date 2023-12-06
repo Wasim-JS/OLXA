@@ -1,0 +1,142 @@
+@import '../../assets/mixin';
+header{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 15px 30px;
+    background-color: skyblue;
+    @include small-screen {
+        padding: 15px 10px;
+        gap: 10px;
+
+    }
+
+    .logo{
+        font-weight: 800;
+        font-family: 'Alef', sans-serif;
+        font-size: 25px;
+        @include small-screen {
+            font-size: 20px;
+    
+        }
+        @include esmall-screen {
+            font-size: 15px;
+
+    
+        }
+    }
+
+    nav{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        .homeRoute{
+            @include small-screen {
+                display: none;
+        
+            }
+        }
+        ul{
+            display: flex;
+            gap: 20px;
+            li{
+                list-style: none;
+                position: relative;
+                a{
+                    text-decoration: none;
+                    font-weight: 600;
+                    color: black;
+                }
+
+                &::after{
+                    content: "";
+                    position: absolute;
+                    width: 0%;
+                    height: 3px;
+                    background-color: black;
+                    bottom: -8px;
+                    left: 0;
+                    transition: all 0.3s linear;
+                }
+
+                &:hover::after{
+                    width: 100%;
+                }
+            }
+        }
+       
+        .auth{
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+
+            .authroutes{
+                
+                @include small-screen {
+                    display: none;
+                    
+                }
+               
+            }
+            
+
+            .menu{
+                justify-content: center;
+                align-items: center;
+                display: none;
+                font-size: 30px;
+                
+                @include small-screen {
+                    display: flex;
+                    
+                }
+
+            }
+            
+        }
+    }
+
+    .serachBar{
+        background-color: transparent;
+        border: 1px solid rgb(51, 184, 237);
+        padding: 10px;
+        margin-left: 100px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        border-radius: 2px;
+        @include small-screen {
+            margin-left: 5px;
+            padding: 8px;
+            
+        }
+        input{
+            width: 600px;
+            padding: 5px;
+            background-color: transparent;
+            border: none;
+            outline: none;
+              
+            @include tab-screen {
+                width: 280px;
+                
+            }
+            @include small-screen {
+                width: 175px;
+                
+            }
+            @include esmall-screen {
+                width: 150px;
+                
+            }
+            
+            &::placeholder{
+                color:black;
+                font-size: 16px;
+            }
+            
+        }
+    }
+
+}
+

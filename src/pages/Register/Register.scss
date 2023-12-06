@@ -1,0 +1,44 @@
+@import '../../assets/mixin';
+
+.reg-sec{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    flex-direction: column;
+    gap: 10px;
+
+    @include esmall-screen {
+     padding: 10px 0px;
+
+    }
+
+
+    .forms{
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        gap:20px;
+
+        @include small-screen {
+            width: 85%;
+    
+        }
+
+        .reg-btn{
+            @include small-screen {
+                padding: 15px;
+        
+            }
+        }
+
+        
+    }
+
+    .form-info{
+        width: 80%;
+        text-align: center;
+    }
+}

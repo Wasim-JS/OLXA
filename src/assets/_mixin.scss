@@ -1,0 +1,39 @@
+// $small-screen: 576px;
+// $medium-screen: 768px;
+// $large-screen: 992px;
+// $extra-large-screen: 1200px;
+
+// Media query mixins
+@mixin tab-screen {
+  @media (max-width: 900px) {
+    @content;
+  }
+}
+@mixin small-screen {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+@mixin esmall-screen {
+  @media (max-width: 330px) {
+    @content;
+  }
+}
+
+// @mixin medium-screen {
+//   @media (min-width: #{$medium-screen}) {
+//     @content;
+//   }
+// }
+
+// @mixin large-screen {
+//   @media (min-width: #{$large-screen}) {
+//     @content;
+//   }
+// }
+
+// @mixin extra-large-screen {
+//   @media (min-width: #{$extra-large-screen}) {
+//     @content;
+//   }
+// }
