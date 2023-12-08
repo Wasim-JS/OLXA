@@ -5,6 +5,6 @@ export const customErrorHandler = async(err,req,res,next) =>{
 
     return res.status(err.status).json({
         success : false,
-        message:err.stack,
+        message:err.message,
     })
 }

@@ -41,10 +41,15 @@ const Register = () => {
       toast("All fields are requried");
       return
     }
-
-    const register = await axios.post('/api/v1/auth/register',{name,email,password,secret})
-    const res = register.data;
-    toast(res.message);
+     
+    try {
+      const register = await axios.post('/api/v1/auth/register',{name,email,password,secret})
+      const res = register.data;
+      toast(res.message);
+      
+    } catch (error) {
+      toast(error.response.data.message);
+    }
     setRegisterData({name:"",email:"",password:"",secret:""})
 
   }
