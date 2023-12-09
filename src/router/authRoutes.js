@@ -1,5 +1,5 @@
 import express from 'express'
-import { forgetPassword, login, register } from '../controllers/authControllers.js'
+import { forgetPassword, login, register, userInfo } from '../controllers/authControllers.js'
 
 const router = express.Router()
 
@@ -12,5 +12,8 @@ router.post('/login',login)
 
 // forget password
 router.post('/forget-password',forgetPassword)
+
+// get User Info Api
+router.get('/me/:id',userInfo)
 
 export default router;

@@ -79,3 +79,18 @@ export const forgetPassword = asyncErrorHandler(async(req,res,next)=>{
 
 
 })
+
+
+export const userInfo = asyncErrorHandler(async(req,res,next)=>{
+
+    const {id} = req.params;
+    
+    const user = await registerModel.findById(id);
+
+    if(!user) return next(new throwCustomHandler(400,"User Does Not Exists"));
+
+    return res.status(200).json({
+        success:true,
+        user
+    })
+})
