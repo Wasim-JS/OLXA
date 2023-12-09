@@ -1,11 +1,12 @@
-import './Home.css'
+import './Home.scss'
 import Layout from '../../components/Layout/Layout'
+import Carsouel from '../../components/Carosuel/Carsouel'
 const Home = () => {
   return (
 
     <Layout>
         <section>
-            Home
+            <Carsouel />
         </section>
     </Layout>
     

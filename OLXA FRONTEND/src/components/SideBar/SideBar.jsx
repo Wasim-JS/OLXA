@@ -4,8 +4,9 @@ import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import { GiHamburgerMenu } from "react-icons/gi";
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import ProfileImage from '../ProfileImage/ProfileImage';
 
 
 export default function TemporaryDrawer() {
@@ -15,6 +16,8 @@ export default function TemporaryDrawer() {
     bottom: false,
     right: false,
   });
+
+  const[isLogin,setIsLogin]=useState(true)
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -36,7 +39,11 @@ export default function TemporaryDrawer() {
               <div className="side-logo">
                 OLXA
               </div>
-              <ul className='sideBar'>
+
+              {
+                isLogin?(<div className='profile-img'><ProfileImage pimage={undefined}/></div>):(
+
+                  <ul className='sideBar'>
                 <li>
                   <Link to={'/'}> Home</Link>
                 </li>
@@ -47,6 +54,9 @@ export default function TemporaryDrawer() {
                   <Link to={'/register'}> Register</Link>
                 </li>
               </ul>
+                )
+              }
+              
             </div>
       </List>
       
@@ -57,7 +67,7 @@ export default function TemporaryDrawer() {
     <div>
       
     <>
-      <Button onClick={toggleDrawer("left", true)}>{<GiHamburgerMenu size={30} color='black' />}</Button>
+      <Button onClick={toggleDrawer("left", true)}>{<GiHamburgerMenu size={27} color='black' />}</Button>
       <Drawer
         anchor={"left"}
         open={state["left"]}

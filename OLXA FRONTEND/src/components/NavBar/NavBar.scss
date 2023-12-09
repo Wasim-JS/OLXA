@@ -5,9 +5,12 @@ header{
     gap: 30px;
     padding: 15px 30px;
     background-color: skyblue;
+    position: relative;
     @include small-screen {
         padding: 15px 10px;
         gap: 10px;
+        justify-content: space-between;
+      
 
     }
 
@@ -33,6 +36,7 @@ header{
         .homeRoute{
             @include small-screen {
                 display: none;
+                justify-content: space-between;
         
             }
         }
@@ -69,31 +73,37 @@ header{
             margin-left: auto;
             display: flex;
             align-items: center;
+          
 
-            .authroutes{
-                
                 @include small-screen {
                     display: none;
                     
-                }
+            
                
             }
             
 
-            .menu{
-                justify-content: center;
-                align-items: center;
-                display: none;
-                font-size: 30px;
-                
-                @include small-screen {
-                    display: flex;
-                    
-                }
+            
 
             }
             
         }
+
+        .menu{
+            justify-content: center;
+            align-items: center;
+            display: none;
+            font-size: 30px;
+
+            
+            
+            @include small-screen {
+                display: flex;
+                margin-left: 2px;
+                position: absolute;
+                right: 0;
+                
+            }
     }
 
     .serachBar{

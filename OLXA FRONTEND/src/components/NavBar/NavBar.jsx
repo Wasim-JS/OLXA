@@ -5,10 +5,11 @@ import ProfileImage from '../ProfileImage/ProfileImage'
 import { BsSearch } from "react-icons/bs";
 // import { GiHamburgerMenu } from "react-icons/gi";
 import SideBar from '../SideBar/SideBar'
+import SpeedDail from '../Speed Dail/SpeedDail';
 
 
 const NavBar = () => {
-  const[isLoggedIn,setIsLoggedIn]=useState(false)
+  const[isLoggedIn,setIsLoggedIn]=useState(true)
   return (
       <header>
         <div className="logo">
@@ -40,13 +41,19 @@ const NavBar = () => {
                 </li>
             </ul>
 
-            <div className='menu'>
-              <SideBar />
-            </div>
               </>
             )
           }
-           </div>
+          </div>
+
+            <div className='menu'>
+              <SideBar />
+            </div>
+            
+            {
+              isLoggedIn && <SpeedDail />
+            }
+            
           
         </nav>
       </header>

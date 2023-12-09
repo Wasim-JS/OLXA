@@ -4,23 +4,10 @@ import TextField from '@mui/material/TextField';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-
-const theme = createTheme({
-  palette: {
-    primary:{
-      main: "#87CEEB",
-
-    },
-    main:{
-      main: "#D53A3A",
-    }
-  },
-});
 
 const Login = () => {
 
@@ -45,7 +32,7 @@ const Login = () => {
   }
   return (
     <Layout>
-       <ThemeProvider theme={theme}>
+     
         <section className='login-sec'>
           <form className='forms'>
             <h2>Login</h2>
@@ -61,7 +48,7 @@ const Login = () => {
           <p className='login-info'>Don&apos;t have an Account? click <Link to={'/register'}>Here</Link> to Register</p>
         </section>
         <ToastContainer />
-        </ThemeProvider>
+   
     </Layout>
   )
 }

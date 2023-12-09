@@ -30,6 +30,11 @@ const ForgetPassword = () => {
   const handleForgetPasswordHandler = async() =>{
 
     const{email,secret,newPassword}  = forgetpassworddata;
+    if([email,secret,newPassword].some(field=>field ===""))
+    {
+      toast("All fields are requried");
+      return
+    }
 
     try {
       const forgetPasswordApi = await axios.post('/api/v1/auth/forget-password',{email,secret,newPassword})

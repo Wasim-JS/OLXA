@@ -2,25 +2,13 @@ import './Register.scss'
 import Layout from '../../components/Layout/Layout'
 import TextField from '@mui/material/TextField';
 import axios from 'axios'
-
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 
-const theme = createTheme({
-  palette: {
-    primary:{
-      main: "#87CEEB",
 
-    },
-    main:{
-      main: "#D53A3A",
-    }
-  },
-});
 
 const Register = () => {
   const [registerData,setRegisterData]=useState({name:"",email:"",password:"",secret:""})
@@ -56,7 +44,7 @@ const Register = () => {
 
   return (
     <Layout>
-       <ThemeProvider theme={theme}>
+      
         <section className='reg-sec'>
           <form className='forms'>
             <h2>Register</h2>
@@ -73,7 +61,7 @@ const Register = () => {
           <p className='form-info'>Aready have an Account? click <Link to={'/login'}>Here</Link> to Login</p>
         </section>
         <ToastContainer />
-        </ThemeProvider>
+      
     </Layout>
   )
 }
