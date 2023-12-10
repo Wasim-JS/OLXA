@@ -1,5 +1,6 @@
 import express from 'express'
-import { forgetPassword, login, register, userInfo } from '../controllers/authControllers.js'
+import { forgetPassword, login, logout, register, userInfo } from '../controllers/authControllers.js'
+import { tokenMiddleWare } from '../middlewares/authMiddleware.js'
 
 const router = express.Router()
 
@@ -14,6 +15,9 @@ router.post('/login',login)
 router.post('/forget-password',forgetPassword)
 
 // get User Info Api
-router.get('/me/:id',userInfo)
+router.get('/me',tokenMiddleWare,userInfo)
+
+// logout Api
+router.get('/logout',logout)
 
 export default router;

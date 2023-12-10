@@ -1,25 +1,9 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import './Modal.scss'
-
-
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 600,
-    height:400,
-    bgcolor: 'background.paper',
-    border: '2px solid skyblue',
-    boxShadow: 24,
-    p: 4,
-  };
-  
-  
+import PropTypes from 'prop-types';
 
 
 const Modals = ({children}) => {
@@ -30,7 +14,7 @@ const Modals = ({children}) => {
   return (
 
     <div>
-    <Button onClick={handleOpen}>{children}</Button>
+    <div onClick={handleOpen}>{children}</div>
     <Modal
       keepMounted
       open={open}
@@ -51,5 +35,9 @@ const Modals = ({children}) => {
     
   )
 }
+
+Modals.propTypes = {
+  children: PropTypes.node.isRequired, // 'node' allows any React node (element, string, number, etc.)
+};
 
 export default Modals

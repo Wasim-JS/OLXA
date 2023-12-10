@@ -37,10 +37,11 @@ export const register = asyncErrorHandler(async(req,res,next)=>{
 export const login = asyncErrorHandler(async(req,res,next)=>{
 
     const{email,password}=req.body;
+    console.log(req.body)
 
     const regex = new RegExp(email, 'i');
 
-    const user = await registerModel.findOne({email:{ $regex: regex }})
+    const user = await registerModel.findOne({email:{ $regex: regex }}).select("+password")
 
     if(!user) return next(new throwCustomHandler(400,"Invalid Credintials")) 
 
@@ -48,9 +49,13 @@ export const login = asyncErrorHandler(async(req,res,next)=>{
 
     if(!isMatch) return next(new throwCustomHandler(400,"Invalid Email or Password"))
 
-    return res.status(200).json({
+    const token = user.genrateToken()
+
+    return res.cookie('token', token, { maxAge: 7 * 24 * 60 * 60 * 1000}).status(200).json({
         success:true,
-        message:'Login Successfull'
+        message:'Login Successfull',
+        user,
+        token
     })
 
 })
@@ -83,14 +88,21 @@ export const forgetPassword = asyncErrorHandler(async(req,res,next)=>{
 
 export const userInfo = asyncErrorHandler(async(req,res,next)=>{
 
-    const {id} = req.params;
     
-    const user = await registerModel.findById(id);
 
+    const user = req.user
     if(!user) return next(new throwCustomHandler(400,"User Does Not Exists"));
-
+    
     return res.status(200).json({
         success:true,
         user
+    })
+})
+
+export const logout = asyncErrorHandler(async(req,res,next)=>{
+
+    return res.cookie("token",'',{maxAge: new Date(1)}).status(200).json({
+        success:true,
+        message:"Logout Successfull..",
     })
 })

@@ -6,8 +6,11 @@ import { styled } from "@mui/material/styles";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Box } from "@mui/material";
 import { useState } from "react";
+import {useSelector} from 'react-redux'
 
 const Profile = () => {
+  const {user} = useSelector(state=>state.user)
+
   const[isLoading,setIsLoading]=useState(false)
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
@@ -38,7 +41,7 @@ const Profile = () => {
             }
             <img
               className="img"
-              src="https://www.clipartkey.com/mpngs/m/152-1520367_user-profile-default-image-png-clipart-png-download.png"
+              src={user?.avatar}
               alt=""
             />
             <Button
@@ -54,11 +57,12 @@ const Profile = () => {
         <div className="right">
           <div className="right-info">
             <p>
-              <span>Name: </span> <span className="data">Jhon</span>
+              <span>Name: </span> <span className="data">{user?.name}</span>
             </p>
             <p>
-              <span>Email: </span> <span className="data">j@gmail.com</span>
+              <span>Email: </span> <span className="data">{user?.email}</span>
             </p>
+           
           </div>
         </div>
       </div>

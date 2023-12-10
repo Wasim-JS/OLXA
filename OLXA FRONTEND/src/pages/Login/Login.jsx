@@ -1,15 +1,18 @@
 import './Login.scss'
 import Layout from '../../components/Layout/Layout'
 import TextField from '@mui/material/TextField';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
+import {useDispatch} from 'react-redux'
+import { updateUserDataOnLogin } from '../../redux-store/userSlice';
+import useAlert from '../../Custom Hooks/alert';
 
 const Login = () => {
+
+  const dispatch = useDispatch()
+  const [alertFun] = useAlert()
 
   const[loginData,setLoginData]=useState({email:"",password:""})
 
@@ -17,13 +20,17 @@ const Login = () => {
        
     const{email,password}  = loginData;
 
+    if([email,password].some(field => field === "")) return alertFun('error',"All fields are requried to login");
+
     try {
       const login = await axios.post('/api/v1/auth/login',{email,password})
       const res = login.data;
-      toast(res.message);
+      dispatch(updateUserDataOnLogin(res.user))
+      alertFun('success',res.message)
       
     } catch (error) {
-      toast(error.response.data.message);
+     console.log(error)
+      alertFun('error',error.response.data.message)
     }
     setLoginData({email:"",password:""})
 
@@ -47,7 +54,6 @@ const Login = () => {
           <p className='login-info'><Link to={'/forget-password'}>forget password?</Link></p>
           <p className='login-info'>Don&apos;t have an Account? click <Link to={'/register'}>Here</Link> to Register</p>
         </section>
-        <ToastContainer />
    
     </Layout>
   )

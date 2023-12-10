@@ -1,10 +1,10 @@
-import { useState } from 'react'
 import {Outlet , Navigate} from 'react-router-dom'
+import {useSelector} from 'react-redux'
 const IsLogin = () => {
-    const [isLogin,setIsLogin]=useState(true)
+     const {isLoggedIn} = useSelector(state=>state.user)
   
        return(
-            isLogin?<Outlet /> :<Navigate to={'/login'} />
+          isLoggedIn?<Outlet /> :<Navigate to={'/login'} />
        );
 }
 

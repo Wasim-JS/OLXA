@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom'
 import './NavBar.scss'
-import { useState } from 'react'
 import ProfileImage from '../ProfileImage/ProfileImage'
 import { BsSearch } from "react-icons/bs";
-// import { GiHamburgerMenu } from "react-icons/gi";
 import SideBar from '../SideBar/SideBar'
 import SpeedDail from '../Speed Dail/SpeedDail';
+import {useSelector} from 'react-redux'
 
 
 const NavBar = () => {
-  const[isLoggedIn,setIsLoggedIn]=useState(true)
+  const {isLoggedIn} = useSelector(state=>state.user)
   return (
       <header>
         <div className="logo">

@@ -1,11 +1,12 @@
-import { useState } from 'react'
 import {Outlet , Navigate} from 'react-router-dom'
+import {useSelector} from 'react-redux'
 const IsLogout = () => {
     
-    const [isLogout,setIsLogout]=useState(true)
-  
+    const {isLoggedIn} = useSelector(state=>state.user)
+    
+    console.log(isLoggedIn)
     return(
-         isLogout?<Outlet /> :<Navigate to={'/'} />
+        !isLoggedIn?<Outlet /> :<Navigate to={'/'} />
     );
 }
 

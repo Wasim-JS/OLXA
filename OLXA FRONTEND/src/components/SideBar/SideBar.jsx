@@ -4,9 +4,10 @@ import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import { GiHamburgerMenu } from "react-icons/gi";
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import ProfileImage from '../ProfileImage/ProfileImage';
+import { useSelector } from 'react-redux';
 
 
 export default function TemporaryDrawer() {
@@ -17,7 +18,7 @@ export default function TemporaryDrawer() {
     right: false,
   });
 
-  const[isLogin,setIsLogin]=useState(true)
+  const {isLoggedIn} = useSelector(state=>state.user)
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -41,7 +42,7 @@ export default function TemporaryDrawer() {
               </div>
 
               {
-                isLogin?(<div className='profile-img'><ProfileImage pimage={undefined}/></div>):(
+                isLoggedIn?(<div className='profile-img'><ProfileImage pimage={undefined}/></div>):(
 
                   <ul className='sideBar'>
                 <li>

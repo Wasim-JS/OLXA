@@ -4,14 +4,14 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios'
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
+import useAlert from '../../Custom Hooks/alert';
 
 
 
 const Register = () => {
   const [registerData,setRegisterData]=useState({name:"",email:"",password:"",secret:""})
+  const [alertFun] = useAlert()
 
   const registerHandler = ({target}) =>{
     setRegisterData(prev=>({...prev,[target.name]:target.value}))
@@ -26,17 +26,17 @@ const Register = () => {
         name,email,password,secret
       ].some(field=> field==="")
     ){
-      toast("All fields are requried");
+       alertFun('error',"All fields are requried to Register")
       return
     }
      
     try {
       const register = await axios.post('/api/v1/auth/register',{name,email,password,secret})
       const res = register.data;
-      toast(res.message);
+      alertFun('success',res.message)
       
     } catch (error) {
-      toast(error.response.data.message);
+      alertFun('error',error.response.data.message)
     }
     setRegisterData({name:"",email:"",password:"",secret:""})
 
@@ -60,7 +60,7 @@ const Register = () => {
           </form>
           <p className='form-info'>Aready have an Account? click <Link to={'/login'}>Here</Link> to Login</p>
         </section>
-        <ToastContainer />
+    
       
     </Layout>
   )
