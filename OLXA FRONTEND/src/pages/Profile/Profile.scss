@@ -3,12 +3,14 @@
 .profile {
   width: 65%;
   max-width: 1200px;
-  height: 500px;
+  height: 350px;
   margin: 0 auto;
   display: flex;
+  align-items: center;
 
   @include small-screen {
     flex-direction: column;
+    height: 450px;
   }
 
   .left {
@@ -20,11 +22,15 @@
     position: relative;
 
     .left-img {
-      width: 70%;
-      height: 70%;
+      width: 60%;
+      height: 60%;
       position: relative;
       border-radius: 50%;
       overflow: hidden;
+      @include small-screen {
+        width: 90%;
+      height: 90%;
+      }
 
       .img-loading {
         position: absolute;

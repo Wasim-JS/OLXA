@@ -25,10 +25,11 @@ const Profile = () => {
   });
 
   const handleUpload = (e) => {
-    console.log(e.target.value);
+
+    
   };
   return (
-    <Layout>
+
       <div className="profile">
         <div className="left">
           <div className="left-img">
@@ -66,7 +67,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </Layout>
+
   );
 };
 

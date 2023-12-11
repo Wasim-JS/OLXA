@@ -11,6 +11,7 @@ import ForgetPassword from "./ForgetPassword/ForgetPassword";
 import Profile from "./Profile/Profile";
 import IsLogin from "../components/Protection Routes/IsLogin";
 import IsLogout from "../components/Protection Routes/IsLogout";
+import TabsComp from "../components/Tabs/TabsComp";
 
 export const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -27,7 +28,7 @@ export const routes = createBrowserRouter(
 
       {/* check if the user is login to access this */}
       <Route element={<IsLogin />}>
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<TabsComp/>} />
       </Route>
     </>
   )
