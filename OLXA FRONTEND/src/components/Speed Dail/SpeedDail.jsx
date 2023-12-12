@@ -7,7 +7,7 @@ import Notifications from '../Notifications/Notifications';
 import { MdOutlineLogout } from "react-icons/md";
 import { FaMagic } from "react-icons/fa";
 import axios from 'axios'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {updateUserDataOnLogout} from '../../../src/redux-store/userSlice'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,6 +16,8 @@ import useAlert from '../../Custom Hooks/alert';
 
 
 const SpeedDail = () => {
+  
+  const {user} = useSelector(state=>state.user)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -49,7 +51,7 @@ const SpeedDail = () => {
     >
       
         <SpeedDialAction
-          icon={<img style={{width:"40px",height:"40px",objectFit:"contain",borderRadius:"50%"}} src={'https://www.clipartkey.com/mpngs/m/152-1520367_user-profile-default-image-png-clipart-png-download.png'} alt='photo'/>}
+          icon={<img style={{width:"40px",height:"40px",objectFit:"cover",borderRadius:"50%"}} src={user?.avatar[0]?.cloudLink || 'https://www.clipartkey.com/mpngs/m/152-1520367_user-profile-default-image-png-clipart-png-download.png'} alt='photo'/>}
           tooltipTitle={"Profile"}
           onClick={()=>navigate('/profile')}
         />

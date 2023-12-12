@@ -2,6 +2,22 @@ import mongoose from "mongoose";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
+const avatarSvhema = new mongoose.Schema({
+     publicId:{
+          type:String,
+       
+     },
+     cloudLink:{
+          type:String,
+          
+     },
+    multerLink:{
+          type:String,
+        
+     },
+
+}) 
+
 const registerSchema = new mongoose.Schema({
 
     name:{
@@ -27,10 +43,8 @@ const registerSchema = new mongoose.Schema({
      type:String,
      default:'user',
     },
-    avatar:{
-     type:String,
-     default:'https://www.clipartkey.com/mpngs/m/152-1520367_user-profile-default-image-png-clipart-png-download.png',
-    }
+    avatar:[avatarSvhema]
+    
 },{timestamps:true})
 
 registerSchema.pre('save',async function(next){

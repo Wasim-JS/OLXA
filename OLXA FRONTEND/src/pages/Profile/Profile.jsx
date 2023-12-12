@@ -1,15 +1,22 @@
-import Layout from "../../components/Layout/Layout";
 import "./Profile.scss";
 import { RiEdit2Fill } from "react-icons/ri";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {useSelector} from 'react-redux'
+import { uplaodProfileImage } from "../../utiles/uploadImage";
+import useAlert from "../../Custom Hooks/alert";
+import { sendToken } from "../../utiles/userFetch";
+import {useDispatch} from 'react-redux'
+import { updateUserDataOnLogin } from "../../redux-store/userSlice";
 
 const Profile = () => {
   const {user} = useSelector(state=>state.user)
+  const [file, setFile] = useState(null);
+  const [alertFun] = useAlert()
+  const dispatch = useDispatch()
 
   const[isLoading,setIsLoading]=useState(false)
   const VisuallyHiddenInput = styled("input")({
@@ -24,8 +31,27 @@ const Profile = () => {
     width: "2px",
   });
 
+  useEffect(()=>{
+    if(file){
+    console.log("file is ",file)
+    const formData = new FormData();
+    formData.append('profilePic', file);
+    uplaodProfileImage(formData).then(data=>{
+       alertFun('success',data.message)
+       
+       sendToken().then(data=>{
+        dispatch(updateUserDataOnLogin(data))
+
+      }).catch(error=>console.log(error))
+      setIsLoading(false)
+    })
+  }
+  },[file])
+
   const handleUpload = (e) => {
 
+    setFile(e.target.files[0]);
+    setIsLoading(true)
     
   };
   return (
@@ -42,7 +68,7 @@ const Profile = () => {
             }
             <img
               className="img"
-              src={user?.avatar}
+              src={user?.avatar[0]?.cloudLink || "https://www.clipartkey.com/mpngs/m/152-1520367_user-profile-default-image-png-clipart-png-download.png"}
               alt=""
             />
             <Button

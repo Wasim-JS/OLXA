@@ -4,7 +4,6 @@ import { createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { updateUserDataOnLogin } from './redux-store/userSlice';
 import {sendToken} from './utiles/userFetch'

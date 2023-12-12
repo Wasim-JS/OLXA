@@ -8,6 +8,8 @@ import {useSelector} from 'react-redux'
 
 
 const NavBar = () => {
+  const {user} = useSelector(state=>state.user)
+
   const {isLoggedIn} = useSelector(state=>state.user)
   return (
       <header>
@@ -29,7 +31,7 @@ const NavBar = () => {
           
           <div className='auth'>
           {
-            isLoggedIn? (<ProfileImage pimage={undefined}/>) : (
+            isLoggedIn? (<ProfileImage pimage={user?.avatar[0]?.cloudLink}/>) : (
               <>
               <ul className='authroutes'>
               <li>

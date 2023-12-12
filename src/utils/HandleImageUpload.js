@@ -1,4 +1,5 @@
 import multer from 'multer';
+import cloudinary from 'cloudinary'
 
 
 
@@ -12,5 +13,15 @@ const storage = multer.diskStorage({
     },
   });
 
+
+  export function uploadImageToCloud(path)
+  {
+    console.log("reached....")
+      return cloudinary.uploader.upload(path,{folder:'myImages',width:150,crop:'scale'}, (error, result) => {
+          if (error) {
+            console.error(error);
+          } 
+        })
+  }
 
  export const upload = multer({ storage: storage });

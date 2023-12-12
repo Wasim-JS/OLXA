@@ -59,10 +59,13 @@ export default function TabsComp() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
+      
+
              <Profile />
+        
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-       <SellInfoForm />
+          <SellInfoForm />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Your Store

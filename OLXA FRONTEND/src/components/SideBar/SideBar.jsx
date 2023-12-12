@@ -11,6 +11,8 @@ import { useSelector } from 'react-redux';
 
 
 export default function TemporaryDrawer() {
+  const {user} = useSelector(state=>state.user)
+
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -42,7 +44,7 @@ export default function TemporaryDrawer() {
               </div>
 
               {
-                isLoggedIn?(<div className='profile-img'><ProfileImage pimage={undefined}/></div>):(
+                isLoggedIn?(<div className='profile-img'><ProfileImage pimage={user?.avatar[0]?.cloudLink}/></div>):(
 
                   <ul className='sideBar'>
                 <li>
