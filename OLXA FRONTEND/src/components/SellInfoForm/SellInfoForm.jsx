@@ -10,23 +10,58 @@ import Stepper from "../../components/Stepper/Stepper";
 import CircularProgress from '@mui/material/CircularProgress';
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 import useAlert from "../../Custom Hooks/alert";
+import {useSelector} from 'react-redux'
+import axios from "axios";
 
 const SellInfoForm = () => {
+  const {user} = useSelector(state=>state.user)
   const [done, setDone] = useState(0);
   const [imgLoading, setImgLoading] = useState(false);
+  const [approveProduct, setApproveProduct] = useState(false);
   const [showsimage, setShowSImage] = useState(false);
   const [pimages, setPimages] = useState([]);
+  const [showData, setShowData] = useState(false);
   const [formData,setFormData] = useState({name:"",year:"",price:0,category:"",hasWarranty:false,hasBill:false,desc:"",pimages:[]})
   const [alertFun] = useAlert()
  
-
+ useEffect(()=>{
+   console.log(formData);
+ },[showData])
   const handleStepper = (num) => {
     setDone(num);
   };
 
   const handleFormData = () =>{
+    
+    const {name,year,price,category,desc} = formData;
+    if([name,year,price,category,desc].some(feild => feild === ""))
+    {
+      alertFun('error',"All Fields are requried")
+      console.log(formData)
+      return
+    }
+
+    if(isNaN(year) )
+    {
+      alertFun('error',"Enter the Valid year")
+      return
+    }
+    if(year < 1800 )
+    {
+      alertFun('error',"Enter the Valid year")
+      return
+    }
+    if(Number(year) > new Date().getFullYear())
+    {
+      alertFun('error',"Year you have mentioned is greater than the current year")
+      return
+    }
+    if(isNaN(price))
+    {
+      alertFun('error',"Enter the Valid Price")
+      return
+    }
     handleStepper(1)
-    console.log(formData)
   }
 
   const handleImageUploads = ({target}) =>{
@@ -49,8 +84,52 @@ const SellInfoForm = () => {
       setPimages(imageUrls)
       setShowSImage(false)
       setFormData(prev=>({...prev,pimages:productFiles}))
-      
+      setShowData(true)
+       
     },2000)
+  }
+
+  const handelSell = async () =>{
+    handleStepper(3)
+    console.log("sell from data" ,formData)
+    const {name,year,price,category,hasWarranty,hasBill,desc,pimages} = formData;
+    const sendFormData =  new FormData();
+    sendFormData.append('name', name); 
+    sendFormData.append('year', year); 
+    sendFormData.append('price', price); 
+    sendFormData.append('category', category); 
+    sendFormData.append('hasWarranty', hasWarranty); 
+    sendFormData.append('hasBill', hasBill); 
+    sendFormData.append('desc', desc); 
+    sendFormData.append("pimages", pimages[0]); // Assuming images is an array of File objects
+    sendFormData.append("pimages", pimages[1]);
+    sendFormData.append("pimages", pimages[2]);
+    sendFormData.append('owner',user._id ); 
+
+    try {
+      console.log("from front",sendFormData);
+      setApproveProduct(true)
+      const productData = await axios.post('/api/v1/product/create-product',sendFormData,{
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      const res = productData.data;
+      setApproveProduct(false)
+      alertFun('success',res.message)
+      
+    } catch (error) {
+     console.log(error)
+     setApproveProduct(false)
+      alertFun('error',error?.response?.data.message)
+    }
+
+  }
+
+  const handleDone = () =>{
+    handleStepper(0)
+    setPimages([])
+    setFormData({name:"",year:"",price:0,category:"",hasWarranty:false,hasBill:false,desc:"",pimages:[]})
   }
  
 
@@ -179,7 +258,7 @@ const SellInfoForm = () => {
             <Button
               className="reg-btn"
               sx={{ color: "white" }}
-              onClick={()=>handleStepper(3)}
+              onClick={handelSell}
               variant="contained"
               color="main"
             >
@@ -199,7 +278,7 @@ const SellInfoForm = () => {
             <div className="finished">
               
               {
-                imgLoading?(
+                approveProduct?(
                     <div className="loading">
                       <CircularProgress size={100} />
                     </div>
@@ -215,7 +294,7 @@ const SellInfoForm = () => {
               
                    <Button
               className="reg-btn"
-              onClick={()=>handleStepper(0)}
+              onClick={handleDone}
               sx={{ color: "white" }}
               variant="contained"
               color="main"

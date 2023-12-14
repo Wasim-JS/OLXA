@@ -7,11 +7,11 @@ import fs from 'fs'
 
 export const register = asyncErrorHandler(async(req,res,next)=>{
 
-    const {name,email,password,secret} = req.body;
+    const {name,email,password,secret,phone} = req.body;
     console.log(req.body)
 
     if(
-        [name,email,password,secret].some(field=> field === "")
+        [name,email,password,secret,phone].some(field=> field === "")
     )
     {
        return next(new throwCustomHandler(400,"All fields are requried"))
@@ -24,7 +24,7 @@ export const register = asyncErrorHandler(async(req,res,next)=>{
     if(user) return next(new throwCustomHandler(409,"Email already exists"))
 
     await registerModel.create({
-        name,email,password,secret
+        name,email,password,secret,phone
     }
     )
 
@@ -131,11 +131,9 @@ export const uplaodProfilePic = asyncErrorHandler(async(req,res,next)=>{
           cloudLink:cloudLinks,
           multerLink:multerLinks
      }
-     console.log("avatarData ",avatarData)
 
      user.avatar.push(avatarData)
      await user.save()
-     console.log("user ",user);
 
         return res.status(200).json({
             success:true,

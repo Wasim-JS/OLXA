@@ -89,6 +89,9 @@ const Profile = () => {
             <p>
               <span>Email: </span> <span className="data">{user?.email}</span>
             </p>
+            <p>
+              <span>Phone: </span> <span className="data">{user?.phone}</span>
+            </p>
            
           </div>
         </div>

@@ -10,7 +10,7 @@ import useAlert from '../../Custom Hooks/alert';
 
 
 const Register = () => {
-  const [registerData,setRegisterData]=useState({name:"",email:"",password:"",secret:""})
+  const [registerData,setRegisterData]=useState({name:"",email:"",phone:"",password:"",secret:""})
   const [alertFun] = useAlert()
 
   const registerHandler = ({target}) =>{
@@ -19,11 +19,11 @@ const Register = () => {
 
   const handleRegisterController = async() =>{
     console.log(registerData)
-    const {name,email,password,secret} = registerData;
+    const {name,email,password,secret,phone} = registerData;
       
     if(
       [
-        name,email,password,secret
+        name,email,password,secret,phone
       ].some(field=> field==="")
     ){
        alertFun('error',"All fields are requried to Register")
@@ -31,14 +31,14 @@ const Register = () => {
     }
      
     try {
-      const register = await axios.post('/api/v1/auth/register',{name,email,password,secret})
+      const register = await axios.post('/api/v1/auth/register',{name,email,password,secret,phone})
       const res = register.data;
       alertFun('success',res.message)
       
     } catch (error) {
       alertFun('error',error.response.data.message)
     }
-    setRegisterData({name:"",email:"",password:"",secret:""})
+    setRegisterData({name:"",email:"",password:"",secret:"",phone:""})
 
   }
 
@@ -51,6 +51,7 @@ const Register = () => {
           
           <TextField color='primary' value={registerData.name}  onChange={registerHandler}  name='name' id="standard-basic" label="Name" variant="standard" />
           <TextField color='primary' value={registerData.email} onChange={registerHandler}  name='email' id="standard-basic" label="Email" variant="standard" />
+          <TextField color='primary' value={registerData.phone} onChange={registerHandler}  name='phone' id="standard-basic" label="Phone" variant="standard" />
           <TextField color='primary' value={registerData.password} onChange={registerHandler}  name="password" id="standard-basic" label="Password" variant="standard" />
           <TextField color='primary' value={registerData.secret} onChange={registerHandler} name='secret' id="standard-basic" label="In Wich City You Born?" variant="standard" />
            

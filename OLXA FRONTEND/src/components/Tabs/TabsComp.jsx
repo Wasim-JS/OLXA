@@ -7,6 +7,7 @@ import { useState } from 'react';
 import Profile from '../../pages/Profile/Profile'
 import Layout from '../Layout/Layout';
 import SellInfoForm from '../SellInfoForm/SellInfoForm';
+import SellDetails from '../SellDetails/SellDetails';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -68,7 +69,7 @@ export default function TabsComp() {
           <SellInfoForm />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Your Store
+        <SellDetails />
       </CustomTabPanel>
     </Box>
     </Layout>

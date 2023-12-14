@@ -1,0 +1,13 @@
+@import '../../assets/mixin';
+
+.sellSec{
+    width: 70%;
+    min-height: 70vh;
+    margin: 0 auto;
+
+    @include small-screen {
+        width: 100%;
+    
+    }
+    
+}
