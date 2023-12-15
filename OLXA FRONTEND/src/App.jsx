@@ -7,6 +7,8 @@ import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { updateUserDataOnLogin } from './redux-store/userSlice';
 import {sendToken} from './utiles/userFetch'
+import { relatedCityProducts } from './utiles/FetchReletedRecords';
+import { addProducts } from './redux-store/productsSlice';
 function App() {
 
   const dispatch = useDispatch()
@@ -14,6 +16,8 @@ function App() {
     const token = Cookies.get('token');
 
     if(token){
+      relatedCityProducts().then(data => dispatch(addProducts(data.products)))
+      .catch(error=>console.log(error))
       sendToken().then(data=>{
         dispatch(updateUserDataOnLogin(data))
 

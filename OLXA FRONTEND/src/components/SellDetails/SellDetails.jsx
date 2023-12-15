@@ -22,7 +22,7 @@ const SellDetails = () => {
       {
         reletedProduct.length>0?(
           reletedProduct.map(product=>(
-            <SoldProductInfo key={product?._id} img={product?.pimages[0]?.cloudLink} name={product?.name} year={product?.year} price={product?.price} desc={product?.desc} />
+            <SoldProductInfo key={product?._id} img={product?.pimages[0]?.cloudLink} name={product?.name} year={product?.year} price={product?.price} desc={product?.desc} approved={product?.approved} />
   
           ))
         ):(

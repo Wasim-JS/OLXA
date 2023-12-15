@@ -14,6 +14,16 @@
 
     }
 
+    .process-bar{
+        width: auto;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        font-size: 25px;
+    }
+
     .product-img{
         width: 30%;
         height: 100%;
@@ -67,3 +77,4 @@
     }
 
 }
+

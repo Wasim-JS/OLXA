@@ -33,8 +33,8 @@ const SellInfoForm = () => {
 
   const handleFormData = () =>{
     
-    const {name,year,price,category,desc} = formData;
-    if([name,year,price,category,desc].some(feild => feild === ""))
+    const {name,year,price,category,desc,street,city,state,country} = formData;
+    if([name,year,price,category,desc,street,city,state,country].some(feild => feild === ""))
     {
       alertFun('error',"All Fields are requried")
       console.log(formData)
@@ -92,7 +92,7 @@ const SellInfoForm = () => {
   const handelSell = async () =>{
     handleStepper(3)
     console.log("sell from data" ,formData)
-    const {name,year,price,category,hasWarranty,hasBill,desc,pimages} = formData;
+    const {name,year,price,category,hasWarranty,hasBill,desc,street,city,state,country,pimages} = formData;
     const sendFormData =  new FormData();
     sendFormData.append('name', name); 
     sendFormData.append('year', year); 
@@ -100,6 +100,10 @@ const SellInfoForm = () => {
     sendFormData.append('category', category); 
     sendFormData.append('hasWarranty', hasWarranty); 
     sendFormData.append('hasBill', hasBill); 
+    sendFormData.append('street', street); 
+    sendFormData.append('city', city); 
+    sendFormData.append('state', state); 
+    sendFormData.append('country', country); 
     sendFormData.append('desc', desc); 
     sendFormData.append("pimages", pimages[0]); // Assuming images is an array of File objects
     sendFormData.append("pimages", pimages[1]);
@@ -129,7 +133,7 @@ const SellInfoForm = () => {
   const handleDone = () =>{
     handleStepper(0)
     setPimages([])
-    setFormData({name:"",year:"",price:0,category:"",hasWarranty:false,hasBill:false,desc:"",pimages:[]})
+    setFormData({name:"",year:"",price:0,category:"",hasWarranty:false,hasBill:false,desc:"",country:"",state:"",city:"",street:"",pimages:[]})
   }
  
 
@@ -151,6 +155,10 @@ const SellInfoForm = () => {
           <input name="name" value={formData.name} type="text" onChange={({target})=>setFormData({...formData,[target.name]:target.value})} placeholder="Product Name" />
           <input name="year" value={formData.year} type="text" onChange={({target})=>setFormData({...formData,[target.name]:target.value})} placeholder="Model in Years" />
           <input name="price" value={formData.price} type="text" onChange={({target})=>setFormData({...formData,[target.name]:target.value})} placeholder="Price" />
+          <input name="country" value={formData.country} type="text" onChange={({target})=>setFormData({...formData,[target.name]:target.value})} placeholder="Country" />
+          <input name="state" value={formData.state} type="text" onChange={({target})=>setFormData({...formData,[target.name]:target.value})} placeholder="State" />
+          <input name="city" value={formData.city} type="text" onChange={({target})=>setFormData({...formData,[target.name]:target.value})} placeholder="City" />
+          <input name="street" value={formData.street} type="text" onChange={({target})=>setFormData({...formData,[target.name]:target.value})} placeholder="Street" />
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-simple-select-helper-label">
               Category

@@ -12,12 +12,14 @@ import Profile from "./Profile/Profile";
 import IsLogin from "../components/Protection Routes/IsLogin";
 import IsLogout from "../components/Protection Routes/IsLogout";
 import TabsComp from "../components/Tabs/TabsComp";
+import ShowOneProduct from "./ShowOneProduct/ShowOneProduct";
 
 export const routes = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Home />} />
       <Route path="/search" element={<SearchPage />} />
+      <Route path="/product/:id" element={<ShowOneProduct />} />
 
       {/* check if the user is logout to access this */}
       <Route element={<IsLogout />}>

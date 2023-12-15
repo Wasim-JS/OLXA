@@ -10,7 +10,7 @@ import useAlert from '../../Custom Hooks/alert';
 
 
 const Register = () => {
-  const [registerData,setRegisterData]=useState({name:"",email:"",phone:"",password:"",secret:""})
+  const [registerData,setRegisterData]=useState({name:"",email:"",phone:"",password:"",secret:"",country:"",state:"",city:""})
   const [alertFun] = useAlert()
 
   const registerHandler = ({target}) =>{
@@ -19,11 +19,11 @@ const Register = () => {
 
   const handleRegisterController = async() =>{
     console.log(registerData)
-    const {name,email,password,secret,phone} = registerData;
+    const {name,email,password,secret,phone,city,state,country} = registerData;
       
     if(
       [
-        name,email,password,secret,phone
+        name,email,password,secret,phone,city,state,country
       ].some(field=> field==="")
     ){
        alertFun('error',"All fields are requried to Register")
@@ -31,14 +31,14 @@ const Register = () => {
     }
      
     try {
-      const register = await axios.post('/api/v1/auth/register',{name,email,password,secret,phone})
+      const register = await axios.post('/api/v1/auth/register',{name,email,password,secret,phone,city,state,country})
       const res = register.data;
       alertFun('success',res.message)
       
     } catch (error) {
       alertFun('error',error.response.data.message)
     }
-    setRegisterData({name:"",email:"",password:"",secret:"",phone:""})
+    setRegisterData({name:"",email:"",password:"",secret:"",phone:"",country:"",state:"",city:""})
 
   }
 
@@ -47,13 +47,18 @@ const Register = () => {
       
         <section className='reg-sec'>
           <form className='forms'>
-            <h2>Register</h2>
+            <h2 style={{textDecoration:"underline"}}>Register</h2>
           
           <TextField color='primary' value={registerData.name}  onChange={registerHandler}  name='name' id="standard-basic" label="Name" variant="standard" />
           <TextField color='primary' value={registerData.email} onChange={registerHandler}  name='email' id="standard-basic" label="Email" variant="standard" />
           <TextField color='primary' value={registerData.phone} onChange={registerHandler}  name='phone' id="standard-basic" label="Phone" variant="standard" />
           <TextField color='primary' value={registerData.password} onChange={registerHandler}  name="password" id="standard-basic" label="Password" variant="standard" />
-          <TextField color='primary' value={registerData.secret} onChange={registerHandler} name='secret' id="standard-basic" label="In Wich City You Born?" variant="standard" />
+
+          <TextField color='primary' value={registerData.country} onChange={registerHandler}  name="country" id="standard-basic" label="country" variant="standard" />
+          <TextField color='primary' value={registerData.state} onChange={registerHandler}  name="state" id="standard-basic" label="state" variant="standard" />
+          <TextField color='primary' value={registerData.city} onChange={registerHandler}  name="city" id="standard-basic" label="city" variant="standard" />
+
+          <TextField color='primary' value={registerData.secret} onChange={registerHandler} name='secret' id="standard-basic" label="What is Your Nick Name?" variant="standard" />
            
           <Button className='reg-btn' sx={{color:"white"}} onClick={handleRegisterController} variant="contained" color='main'>Register</Button>
 

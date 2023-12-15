@@ -44,3 +44,34 @@ export const getProductRelatedToUser = asyncErrorHandler(async(req,res,next)=>{
         products
     })
 })
+
+
+export const cityProducts = asyncErrorHandler(async(req,res,next)=>{
+
+    const products = await productModel.find({city:req.user.city})
+
+    return res.status(200).json({
+        success:true,
+        products
+    })
+})
+
+export const getProductBasedOnId = asyncErrorHandler(async(req,res,next)=>{
+
+    const id = req.params.id
+
+    const product = await productModel.findById(id)
+
+    if(!product) return new throwCustomHandler(404,"Product Not Found")
+
+
+    return res.status(200).json({
+        success:true,
+        product
+    })
+
+})
+
+
+
+

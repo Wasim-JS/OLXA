@@ -8,7 +8,8 @@ import axios from 'axios';
 import {useDispatch} from 'react-redux'
 import { updateUserDataOnLogin } from '../../redux-store/userSlice';
 import useAlert from '../../Custom Hooks/alert';
-
+import { relatedCityProducts } from '../../utiles/FetchReletedRecords';
+import { addProducts } from '../../redux-store/productsSlice';
 const Login = () => {
 
   const dispatch = useDispatch()
@@ -27,6 +28,9 @@ const Login = () => {
       const res = login.data;
       dispatch(updateUserDataOnLogin(res.user))
       alertFun('success',res.message)
+      
+      relatedCityProducts().then(data => dispatch(addProducts(data.products)))
+      .catch(error=>console.log(error))
       
     } catch (error) {
      console.log(error)

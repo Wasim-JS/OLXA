@@ -92,6 +92,15 @@ const Profile = () => {
             <p>
               <span>Phone: </span> <span className="data">{user?.phone}</span>
             </p>
+            <p>
+              <span>Country: </span> <span className="data">{user?.country}</span>
+            </p>
+            <p>
+              <span>State: </span> <span className="data">{user?.state}</span>
+            </p>
+            <p>
+              <span>City: </span> <span className="data">{user?.city}</span>
+            </p>
            
           </div>
         </div>

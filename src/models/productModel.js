@@ -48,6 +48,29 @@ const productSchema = new mongoose.Schema({
     owner:{
           type:mongoose.Schema.Types.ObjectId,
           ref:"User"
+    },
+    approved:{
+        type:Boolean,
+        requried:true,
+        default:false
+    },
+
+    country:{
+        type:String,
+        requried:true
+    },
+
+    state:{
+        type:String,
+        requried:true
+    },
+    city:{
+        type:String,
+        requried:true
+    },
+    street:{
+        type:String,
+        requried:true
     }
 
 })

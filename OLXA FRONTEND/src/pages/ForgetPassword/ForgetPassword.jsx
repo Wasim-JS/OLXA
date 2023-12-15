@@ -46,7 +46,7 @@ const ForgetPassword = () => {
             <h2>Forget Password?</h2>
           
           <TextField color='primary' value={forgetpassworddata.email} onChange={(e)=>setForgetPasswordData(prev=>({...prev,email:e.target.value}))} name='email' id="standard-basic" label="Email" variant="standard" />
-          <TextField color='primary' value={forgetpassworddata.secret} onChange={(e)=>setForgetPasswordData(prev=>({...prev,secret:e.target.value}))} name='secret' id="standard-basic" label="In Which City you Born?" variant="standard" />
+          <TextField color='primary' value={forgetpassworddata.secret} onChange={(e)=>setForgetPasswordData(prev=>({...prev,secret:e.target.value}))} name='secret' id="standard-basic" label="What is Your Nick Name?" variant="standard" />
           <TextField color='primary' value={forgetpassworddata.newPassword} onChange={(e)=>setForgetPasswordData(prev=>({...prev,newPassword:e.target.value}))} name='newPassword' id="standard-basic" label="New Password" variant="standard" />
            
           <Button className='reg-btn' sx={{color:"white"}} onClick={handleForgetPasswordHandler} variant="contained" color='main'>Reset Password</Button>

@@ -1,0 +1,34 @@
+@import '../../assets/mixin';
+
+.cImageLoading{
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include small-screen {
+  
+        height: 250px;
+    }
+}
+
+.courosel{
+    width: 100%;
+    background-color: red;
+    height: 400px;
+    overflow: hidden;
+    @include small-screen {
+  
+        height: 250px;
+    }
+    
+   img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+   }
+
+ 
+    
+}
