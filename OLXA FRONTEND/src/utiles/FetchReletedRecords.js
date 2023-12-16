@@ -10,7 +10,7 @@ export async function reletedProducts() {
 }
 export async function relatedCityProducts() {
   try {
-    const reletedProducts = await axios.get("/api/v1/product/city-products"
+    const reletedProducts = await axios.get("/api/v1/product/all-products"
     );
     return reletedProducts.data;
   } catch (error) {
@@ -19,7 +19,7 @@ export async function relatedCityProducts() {
 }
 export async function fetchProductBasedOnId(id) {
   try {
-    const reletedProducts = await axios.get(`/api/v1/product/${id}`);
+    const reletedProducts = await axios.get(`/api/v1/product/single/${id}`);
     return reletedProducts.data;
   } catch (error) {
     console.log(error);

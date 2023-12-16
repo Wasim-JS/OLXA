@@ -32,3 +32,34 @@
  
     
 }
+
+.product-info{
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px;
+    @include small-screen {
+  
+        width: 90%;
+    }
+
+    .bit-sec{
+        padding: 20px;
+        position: relative;
+        margin-top: 20px;
+        button{
+            border: none;
+            color: white;
+            padding: 6px;
+            background-color: crimson;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 15px;
+            border-radius: 10px;
+            &:active{
+                transform: scale(0.9);
+            }
+            
+        }
+    }
+}

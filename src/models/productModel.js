@@ -71,7 +71,20 @@ const productSchema = new mongoose.Schema({
     street:{
         type:String,
         requried:true
-    }
+    },
+
+    bidding:[{
+        bidder:{
+                type:mongoose.Schema.Types.ObjectId,
+                ref:"User"
+        },
+        price:{
+            type:Number
+        },
+        bidDesc:{
+             type:String
+        }
+    }]
 
 })
 

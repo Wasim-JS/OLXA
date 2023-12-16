@@ -21,7 +21,7 @@ const SellInfoForm = () => {
   const [showsimage, setShowSImage] = useState(false);
   const [pimages, setPimages] = useState([]);
   const [showData, setShowData] = useState(false);
-  const [formData,setFormData] = useState({name:"",year:"",price:0,category:"",hasWarranty:false,hasBill:false,desc:"",pimages:[]})
+  const [formData,setFormData] = useState({name:"",year:"",price:"",category:"",hasWarranty:false,hasBill:false,desc:"",pimages:[]})
   const [alertFun] = useAlert()
  
  useEffect(()=>{

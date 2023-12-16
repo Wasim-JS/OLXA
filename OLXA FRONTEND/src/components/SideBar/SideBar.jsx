@@ -44,7 +44,10 @@ export default function TemporaryDrawer() {
               </div>
 
               {
-                isLoggedIn?(<div className='profile-img'><ProfileImage pimage={user?.avatar[0]?.cloudLink}/></div>):(
+                isLoggedIn?(<div className='profile-img'>
+                  <ProfileImage pimage={user?.avatar[0]?.cloudLink}/>
+                  <Link to={'/'}> Home</Link>
+                  </div>):(
 
                   <ul className='sideBar'>
                 <li>

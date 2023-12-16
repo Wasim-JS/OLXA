@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux'
 const Home = () => {
 
   const {productsData} = useSelector(state=>state.product)
+  const {isLoggedIn} = useSelector(state=>state.user)
+
   return (
 
     <Layout>
@@ -15,7 +17,7 @@ const Home = () => {
 
 
         <section >
-             <h2 style={{textAlign:"center",margin:20}}>Fresh recommendations</h2>
+             <h2 style={{textAlign:"center",margin:20}}>{isLoggedIn ? ("Fresh recommendations"):("Register Or Login Now")}</h2>
              <div className='show-products'>
               
                {

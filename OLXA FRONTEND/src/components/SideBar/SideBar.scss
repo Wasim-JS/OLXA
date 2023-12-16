@@ -25,4 +25,8 @@
 
 .profile-img{
     margin: 10px ;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-weight: 800;
 }

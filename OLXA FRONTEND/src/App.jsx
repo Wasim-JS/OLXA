@@ -15,9 +15,9 @@ function App() {
   useEffect(()=>{
     const token = Cookies.get('token');
 
+    relatedCityProducts().then(data => dispatch(addProducts(data.products)))
+    .catch(error=>console.log(error))
     if(token){
-      relatedCityProducts().then(data => dispatch(addProducts(data.products)))
-      .catch(error=>console.log(error))
       sendToken().then(data=>{
         dispatch(updateUserDataOnLogin(data))
 

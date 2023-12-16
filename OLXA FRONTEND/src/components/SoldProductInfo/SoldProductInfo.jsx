@@ -17,10 +17,7 @@ const SoldProductInfo = ({name,year,price,img,desc,approved}) => {
              <p><span className="heading">Name:</span><span> {name}</span></p>
              <p><span className="heading">Year:</span><span> {year}</span></p>
              <p><span className="heading">Price:</span><span>{String(formatter.format(price))?.split(".")[0]}</span></p>
-             <div className='desc'>
-
-             <div className="heading">Description:</div><div className='info'> {desc}</div>
-             </div>
+             <p className='desc'><span className="heading">Description:</span><span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis optio debitis ipsum sed obcaecati doloremque accusamus culpa quas quo numquam repudiandae nulla dignissimos delectus, facilis veritatis iure earum ad eius.</span></p>
         </div>
     </div>
   )

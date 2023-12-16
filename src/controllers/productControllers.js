@@ -2,6 +2,7 @@ import { asyncErrorHandler } from "../utils/AsyncErrorHandler.js";
 import { uploadImageToCloud } from "../utils/HandleImageUpload.js";
 import { throwCustomHandler } from "../utils/throwCustomError.js";
 import {productModel} from '../models/productModel.js'
+import FilterSearch from "../utils/FilterSearch.js";
 export const createProduct = asyncErrorHandler(async(req,res,next)=>{
 
     const images = req.files;
@@ -46,9 +47,9 @@ export const getProductRelatedToUser = asyncErrorHandler(async(req,res,next)=>{
 })
 
 
-export const cityProducts = asyncErrorHandler(async(req,res,next)=>{
+export const allProducts = asyncErrorHandler(async(req,res,next)=>{
 
-    const products = await productModel.find({city:req.user.city})
+    const products = await productModel.find()
 
     return res.status(200).json({
         success:true,
@@ -60,7 +61,7 @@ export const getProductBasedOnId = asyncErrorHandler(async(req,res,next)=>{
 
     const id = req.params.id
 
-    const product = await productModel.findById(id)
+    const product = await productModel.findById(id).populate('owner')
 
     if(!product) return new throwCustomHandler(404,"Product Not Found")
 
@@ -69,6 +70,28 @@ export const getProductBasedOnId = asyncErrorHandler(async(req,res,next)=>{
         success:true,
         product
     })
+
+})
+
+
+export const getFilterProducts = asyncErrorHandler(async(req,res,next)=>{
+
+      const {keyword,gt,lt,page} = req.query;
+      const noOfrecords = 2
+      console.log(keyword,gt,lt,page)
+
+      const queryData = new FilterSearch(productModel).keywordSearch(keyword).priceSearch(gt,lt).setLimit(noOfrecords,page)
+
+      const filterProducts = await queryData.query
+
+
+      return res.status(200).json({
+        success:true,
+        totalNumberOfProducts:filterProducts.length,
+        products:filterProducts
+    })
+
+
 
 })
 

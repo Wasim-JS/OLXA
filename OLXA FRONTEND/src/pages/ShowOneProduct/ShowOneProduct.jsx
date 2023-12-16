@@ -9,6 +9,10 @@ import { uploadImage } from '../../redux-store/ShowImageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import ShowImageModol from '../../components/ShowImageModal/ShowImageModol'
 import CircularProgress from '@mui/material/CircularProgress';
+import ProductTable from '../../components/ProductTable/ProductTable'
+import { TbHammer } from "react-icons/tb";
+import ShowBid from '../../components/ShowBidModol/ShowBid'
+
 
 const ShowOneProduct = () => {
     const dispatch = useDispatch()
@@ -19,7 +23,9 @@ const ShowOneProduct = () => {
     const [loading,setLoading] = useState(true)
 
 
+
     useEffect(()=>{
+            window.scrollTo(0, 0);
         setLoading(true)
         if(id)
         {
@@ -53,26 +59,17 @@ const ShowOneProduct = () => {
                     showIndicators={false}
                     showThumbs={false}
                     >
-                        
-                        <div className='inner-div' onClick={()=> handleClick(product?.pimages?.[0].cloudLink)}>
-                            <img style={{objectFit:"contain"}} src={product?.pimages?.[0].cloudLink} />
-                        </div>
-
-
-                        <div onClick={()=>handleClick(product?.pimages?.[1].cloudLink)}>
-                            <img src={product?.pimages?.[1].cloudLink} />
-                        </div>
-                        
-
-                        <div onClick={()=>handleClick(product?.pimages?.[2].cloudLink)}>
-                            <img src={product?.pimages?.[2].cloudLink} />
-                        </div>
+                        {
+                          product?.pimages.map(p => (
+                            <div key={p?.cloudLink} className='inner-div' onClick={()=> handleClick(p?.cloudLink)}>
+                            <img style={{objectFit:"contain"}} src={p?.cloudLink} />
+                            </div>
+                          ))  
+                        }
                       
                     </Carousel>
                     <p style={{textAlign:"center",fontWeight:800}}>Click on Images For Better Views</p>
             </div>
-
-
        </section>
             ):(
                 <div className='cImageLoading'>
@@ -80,6 +77,21 @@ const ShowOneProduct = () => {
                 </div>
             )
         }
+
+        <section className='product-info'>
+
+            <ProductTable product={product}/>
+
+
+            <div className='bit-sec'>
+             
+             <ShowBid productId={product._id}>
+             <button><TbHammer/> Raise a Bid</button>
+             </ShowBid>
+
+            </div>
+
+        </section>
 
      
        

@@ -60,8 +60,6 @@ export default function TabsComp() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-      
-
              <Profile />
         
       </CustomTabPanel>

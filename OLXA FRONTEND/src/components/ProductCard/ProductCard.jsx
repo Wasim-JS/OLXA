@@ -12,7 +12,7 @@ const ProductCard = ({product}) => {
 
      <div className="pInfo">
         <p>{product.name}</p>
-        <p className='price'>{formatter.format(product.price)}</p>
+        <p className='price'>{formatter.format(product?.price)?.split('.')[0]}</p>
         <p className='address'>{product.street} | {product.city}</p>
 
      </div>
