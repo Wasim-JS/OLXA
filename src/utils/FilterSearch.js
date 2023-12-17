@@ -11,11 +11,11 @@ class FilterSearch {
 
     keywordSearch(keyword)
     {
-
+         
         this.queryString = {
             $or: [
-              { name: { $regex: new RegExp(keyword, 'i') } },
-              { category: { $regex: new RegExp(keyword, 'i') } }
+              { name: { $regex: new RegExp(keyword, 'ig') } },
+              { category: { $regex: new RegExp(keyword, 'ig') } }
             ]
           }
           this.query = this.ProductModel.find(this.queryString)
@@ -27,8 +27,8 @@ class FilterSearch {
     priceSearch(greater=0,lesser=0)
     {
         let priceRange = {}
-        if(greater && lesser )
-        {
+        if(greater!==0 && lesser!==0 )
+        {   console.log("we entred")
              priceRange = {price: {$gt: greater,$lt: lesser}}
         }
         this.queryString = {...this.queryString,...(Object.keys(priceRange).length > 0) && priceRange}

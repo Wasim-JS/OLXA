@@ -1,0 +1,224 @@
+@import '../../assets/mixin';
+.search{
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    position: relative;
+    
+
+    .serach-left{
+       width: 17%;
+       height: 100%;
+       transition: all 0.3s linear;
+       background-color: #fff;
+       padding: 5px;
+      
+         h4{
+            text-decoration: underline;
+         }
+
+    .inps{
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        background-color: rgb(225, 219, 219);
+        gap: 6px;
+        align-items: center;
+        input{
+            width: 80px;
+            padding: 10px;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+
+            @include small-screen{
+                width: 70px;
+            }
+        }
+
+        
+    }
+
+    .sortBy{
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+       
+    }
+
+    .slocation{
+        width: 100%;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 10px 0px;
+        input{
+            padding: 6px;
+            border: none;
+            outline: none;
+            &::placeholder{
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            &:focus{
+                border: 1px solid skyblue;
+                border-radius: 10px;
+            }
+        }
+        button{
+            background-color: crimson;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 4px;
+            &:active{
+                transform: scale(0.9);
+            }
+        }
+    }
+
+    @include small-screen {
+        position: absolute;
+        width: 40%;
+        z-index: 9;
+        transform: translateX(-100%);
+        box-shadow: 0px 0px 3px 1px rgb(191, 190, 190);
+      }
+   
+
+    }
+
+    .showSide{
+        transform: translateX(0%);
+    }
+
+    .search-right{
+       width: 83%;
+       height: 100%;
+       position: relative;
+     
+     
+      
+       @include small-screen {
+        width: 100%;
+      }
+
+      .showProducts{
+        width: 100%;
+        height: 90%;
+        padding: 5px;
+        overflow-y: auto;
+        position: relative;
+        &::-webkit-scrollbar {
+            display: none;
+          }
+
+          .sproducts{
+            width: 100%;
+            height: 160px;
+            display: flex;
+            box-shadow: 0px 0px 10px 1px rgb(190, 188, 188);
+            margin: 10px 0px;
+            position: relative;
+            overflow: hidden;
+            pointer-events: none;
+
+            &::before{
+                content: "";
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                background-color: white;
+                opacity: 0;
+                filter: blur(20px);
+                transition: all 0.3s linear;
+                animation: productLoadAnimation 1s linear  infinite alternate ;
+            }
+
+
+            .sproduct-left{
+                    width: 30%;
+                    height: 100%;
+                    object-fit: cover;
+                    background-color: #ded9d9;
+                
+                @include small-screen {
+                    width: 30%;
+                    
+                }
+            }
+
+            .sproduct-right{
+                width: 70%;
+                height: 100%;
+                display: flex;
+                justify-content: flex-start;
+                flex-direction: column;
+                padding: 10px 20px;
+                gap: 8px;
+                background-color: #e6e4e4;
+
+            }
+          }
+        
+
+
+      
+      }
+
+      .pag{
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+          
+        
+    }
+
+      .searchBtn{
+        position: absolute;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 20px;
+        right: 10px;
+        top: 10px;
+        display: none;
+        transition: all 0.3s linear;
+        box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.3);
+        background-color: skyblue;
+        z-index: 999;
+        &:active{
+            transform: scale(0.9);
+        }
+        
+        @include small-screen {
+            display: block;
+          }
+      }
+
+    
+
+    }
+
+
+   
+}
+
+@keyframes productLoadAnimation {
+
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: .5;
+    }
+    100%{
+        opacity: 1;
+    }
+    
+}

@@ -76,10 +76,17 @@ export const getProductBasedOnId = asyncErrorHandler(async(req,res,next)=>{
 
 export const getFilterProducts = asyncErrorHandler(async(req,res,next)=>{
 
-      const {keyword,gt,lt,page} = req.query;
-      const noOfrecords = 2
+      let {keyword,gt,lt,page} = req.query;
+      gt = Number(gt)
+      lt = Number(lt)
+      page = Number(page)
       console.log(keyword,gt,lt,page)
-
+      
+      const countOf = new FilterSearch(productModel).keywordSearch(keyword).priceSearch(gt,lt)
+      
+      const productCount = await productModel.countDocuments(countOf.queryString)
+      
+      const noOfrecords = 1
       const queryData = new FilterSearch(productModel).keywordSearch(keyword).priceSearch(gt,lt).setLimit(noOfrecords,page)
 
       const filterProducts = await queryData.query
@@ -87,7 +94,8 @@ export const getFilterProducts = asyncErrorHandler(async(req,res,next)=>{
 
       return res.status(200).json({
         success:true,
-        totalNumberOfProducts:filterProducts.length,
+        total:productCount,
+        totalProductsFetched:filterProducts.length,
         products:filterProducts
     })
 

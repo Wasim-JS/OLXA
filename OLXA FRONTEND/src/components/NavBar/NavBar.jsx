@@ -1,16 +1,39 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './NavBar.scss'
 import ProfileImage from '../ProfileImage/ProfileImage'
 import { BsSearch } from "react-icons/bs";
 import SideBar from '../SideBar/SideBar'
 import SpeedDail from '../Speed Dail/SpeedDail';
 import {useSelector} from 'react-redux'
+import { useEffect, useState } from 'react';
 
 
 const NavBar = () => {
+  const navigate = useNavigate()
   const {user} = useSelector(state=>state.user)
+  const queryParams = new URLSearchParams(location.search);
+  const paramValue = queryParams.get('keyword') || ""
 
   const {isLoggedIn} = useSelector(state=>state.user)
+  const [keyword,setKeyword] = useState("")
+
+  useEffect(()=>{
+    const queryParams = new URLSearchParams(location.search);
+    const paramValue = queryParams.get('keyword') || ""
+    setKeyword(paramValue)
+    
+    
+  },[paramValue])
+  const handleSearch = (e) =>{
+    if(e.key === "Enter")
+    {
+      console.log("en")
+      navigate(`/search?keyword=${keyword}`)
+      // <Navigate to={`/search?keyword=${keyword}`} />
+     
+    }
+
+  }
   return (
       <header>
         <div className="logo">
@@ -24,9 +47,9 @@ const NavBar = () => {
             </li>
           </ul>
 
-          <div className='serachBar'>
+          <div className='serachBar' >
           <BsSearch />
-             <input placeholder='Search Products Here.....' type="text" name="" id="" />
+             <input value={keyword} onChange={({target})=> setKeyword(target.value) } placeholder='Search Products Here.....'  onKeyDown={handleSearch} type="text" name="" id="" />
           </div>
           
           <div className='auth'>
