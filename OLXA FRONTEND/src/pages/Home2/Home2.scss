@@ -1,0 +1,24 @@
+@import '../../assets/mixin';
+
+.home2{
+    width: 100%;
+    height: auto;
+
+
+.show-products{
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+    
+    @include small-screen {
+        width: 90%;
+        grid-template-columns: repeat(1,1fr);
+   
+      
+
+    }
+}
+}

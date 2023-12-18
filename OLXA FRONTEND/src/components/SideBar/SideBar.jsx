@@ -32,7 +32,7 @@ export default function TemporaryDrawer() {
 
   const list = (anchor) => (
     <Box
-      sx={{ width:250,backgroundColor:"skyblue",height:"100%" }}
+      sx={{ width:250,backgroundColor:"#008060",height:"100%" }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
@@ -46,7 +46,7 @@ export default function TemporaryDrawer() {
               {
                 isLoggedIn?(<div className='profile-img'>
                   <ProfileImage pimage={user?.avatar[0]?.cloudLink}/>
-                  <Link to={'/'}> Home</Link>
+                  <Link to={'/home2'} style={{color:"white"}}> Home</Link>
                   </div>):(
 
                   <ul className='sideBar'>
@@ -73,7 +73,7 @@ export default function TemporaryDrawer() {
     <div>
       
     <>
-      <Button onClick={toggleDrawer("left", true)}>{<GiHamburgerMenu size={27} color='black' />}</Button>
+      <Button onClick={toggleDrawer("left", true)}>{<GiHamburgerMenu size={27} color='white' />}</Button>
       <Drawer
         anchor={"left"}
         open={state["left"]}

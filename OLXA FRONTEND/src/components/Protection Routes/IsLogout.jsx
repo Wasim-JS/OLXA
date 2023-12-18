@@ -6,7 +6,7 @@ const IsLogout = () => {
     
     console.log(isLoggedIn)
     return(
-        !isLoggedIn?<Outlet /> :<Navigate to={'/'} />
+        !isLoggedIn?<Outlet /> :<Navigate to={'/home2'} />
     );
 }
 

@@ -29,6 +29,7 @@ const SpeedDail = () => {
       const res = logout.data;
       console.log(res.message)
       alertFun('success',res.message)
+      navigate('/')
       dispatch(updateUserDataOnLogout())
       
     } catch (error) {
@@ -39,7 +40,7 @@ const SpeedDail = () => {
       
   return (
    <>
-    <Box className="speedDail"  sx={{position: 'fixed',bottom: -30, right: 30,zIndex:99, height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+    <Box className="speedDail"  sx={{position: 'fixed',bottom: -30, right: 30,zIndex:9999999999, height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
     <SpeedDial
       ariaLabel="SpeedDial basic example"
       sx={{ bottom: 0, right: 0 }}

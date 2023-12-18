@@ -2,13 +2,13 @@ import './Footer.scss'
 const Footer = () => {
   return (
     <footer className='footer'>
-      <div className='footer-logo'>
+      {/* <div className='footer-logo'>
         OLXA
-      </div>
+      </div> */}
 
 <div className='footer-info'>
 
-      All Right Reserved &copy; {new Date().getFullYear()}
+     <span style={{fontFamily:'Pacifico, cursive',margin:"0 10px"}}>OLXA</span> All Right Reserved &copy; {new Date().getFullYear()}
 </div>
 
 

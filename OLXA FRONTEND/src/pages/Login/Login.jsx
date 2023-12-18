@@ -2,7 +2,7 @@ import './Login.scss'
 import Layout from '../../components/Layout/Layout'
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import {useDispatch} from 'react-redux'
@@ -11,6 +11,7 @@ import useAlert from '../../Custom Hooks/alert';
 import { relatedCityProducts } from '../../utiles/FetchReletedRecords';
 import { addProducts } from '../../redux-store/productsSlice';
 const Login = () => {
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
   const [alertFun] = useAlert()
@@ -18,6 +19,7 @@ const Login = () => {
   const[loginData,setLoginData]=useState({email:"",password:""})
 
   const handleLoginSubmit = async() =>{
+   
        
     const{email,password}  = loginData;
 
@@ -28,6 +30,8 @@ const Login = () => {
       const res = login.data;
       dispatch(updateUserDataOnLogin(res.user))
       alertFun('success',res.message)
+      navigate('/home2')
+      
       
       relatedCityProducts().then(data => dispatch(addProducts(data.products)))
       .catch(error=>console.log(error))

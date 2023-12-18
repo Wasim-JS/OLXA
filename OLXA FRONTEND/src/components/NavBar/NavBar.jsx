@@ -43,14 +43,21 @@ const NavBar = () => {
         <nav>
           <ul className='homeRoute'>
             <li>
-              <Link to={'/'}>Home</Link>
+              {
+                isLoggedIn?( <Link to={`/home2`}>Home</Link>):( <Link to={`/`}>Home</Link>)
+              }
+              
+
+              
             </li>
           </ul>
+           {
 
-          <div className='serachBar' >
-          <BsSearch />
+          isLoggedIn && <div className='serachBar' >
+          <BsSearch color='white' />
              <input value={keyword} onChange={({target})=> setKeyword(target.value) } placeholder='Search Products Here.....'  onKeyDown={handleSearch} type="text" name="" id="" />
           </div>
+           }
           
           <div className='auth'>
           {

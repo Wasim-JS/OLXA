@@ -15,7 +15,7 @@ function App() {
   useEffect(()=>{
     const token = Cookies.get('token');
 
-    relatedCityProducts().then(data => dispatch(addProducts(data.products)))
+    relatedCityProducts().then(data => dispatch(addProducts(data?.products)))
     .catch(error=>console.log(error))
     if(token){
       sendToken().then(data=>{
@@ -29,7 +29,7 @@ function App() {
   const theme = createTheme({
     palette: {
       primary:{
-        main: "#87CEEB",
+        main: "#212326",
   
       },
       main:{
