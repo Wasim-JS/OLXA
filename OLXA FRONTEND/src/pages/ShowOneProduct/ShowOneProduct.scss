@@ -46,7 +46,10 @@
         padding: 20px;
         position: relative;
         margin-top: 20px;
-        button{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        .raise-bid-btn{
             border: none;
             color: white;
             padding: 6px;
@@ -60,6 +63,14 @@
                 transform: scale(0.9);
             }
             
+        }
+
+
+        .bidsHeading{
+            text-align: center;
+            margin: 10px;
+            font-weight: 800;
+            text-decoration: underline;
         }
     }
 }

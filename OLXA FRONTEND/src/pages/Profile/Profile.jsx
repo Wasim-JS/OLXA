@@ -68,7 +68,7 @@ const Profile = () => {
             }
             <img
               className="img"
-              src={user?.avatar?.[0].cloudLink || "https://www.clipartkey.com/mpngs/m/152-1520367_user-profile-default-image-png-clipart-png-download.png"}
+              src={user?.avatar?.[0]?.cloudLink || "https://www.clipartkey.com/mpngs/m/152-1520367_user-profile-default-image-png-clipart-png-download.png"}
               alt=""
             />
             <Button

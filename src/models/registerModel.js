@@ -55,6 +55,22 @@ const registerSchema = new mongoose.Schema(
       type: String,
       default: "user",
     },
+    noOfNotifications:{
+          type:Number,
+          default:0
+    },
+    notifications:[
+      // {
+      //   notificationDesc:{
+      //     type:String
+        
+      //   },
+
+      //   gotoProduct:{
+      //       type:String
+      //   }
+      // }
+    ],
     avatar: [avatarSvhema],
   },
   { timestamps: true }

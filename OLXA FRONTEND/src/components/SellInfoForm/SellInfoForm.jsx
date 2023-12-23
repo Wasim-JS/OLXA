@@ -10,10 +10,13 @@ import Stepper from "../../components/Stepper/Stepper";
 import CircularProgress from '@mui/material/CircularProgress';
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 import useAlert from "../../Custom Hooks/alert";
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import axios from "axios";
+import { allProducts } from "../../utiles/FetchReletedRecords";
+import { addProducts } from "../../redux-store/productsSlice";
 
 const SellInfoForm = () => {
+  const dispatch = useDispatch()
   const {user} = useSelector(state=>state.user)
   const [done, setDone] = useState(0);
   const [imgLoading, setImgLoading] = useState(false);
@@ -68,7 +71,7 @@ const SellInfoForm = () => {
   
     const productFiles = Array.from(target.files)
 
-    if (productFiles.length > 3 || productFiles.length < 3) {
+    if (productFiles.length > 3 || productFiles.length < 3 || productFiles.length===0) {
       alertFun('error',"Select Excatly 3 Images")
       return;
     }
@@ -90,9 +93,14 @@ const SellInfoForm = () => {
   }
 
   const handelSell = async () =>{
-    handleStepper(3)
+   
     console.log("sell from data" ,formData)
     const {name,year,price,category,hasWarranty,hasBill,desc,street,city,state,country,pimages} = formData;
+    if(pimages.length !== 3)
+    {
+      alertFun('error',"Select Excatly 3 Images")
+      return;
+    }
     const sendFormData =  new FormData();
     sendFormData.append('name', name); 
     sendFormData.append('year', year); 
@@ -109,6 +117,7 @@ const SellInfoForm = () => {
     sendFormData.append("pimages", pimages[1]);
     sendFormData.append("pimages", pimages[2]);
     sendFormData.append('owner',user._id ); 
+    handleStepper(3)
 
     try {
       console.log("from front",sendFormData);
@@ -121,6 +130,8 @@ const SellInfoForm = () => {
       const res = productData.data;
       setApproveProduct(false)
       alertFun('success',res.message)
+      allProducts().then(data => dispatch(addProducts(data?.products)))
+      .catch(error=>console.log(error))
       
     } catch (error) {
      console.log(error)

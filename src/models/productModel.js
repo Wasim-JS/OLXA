@@ -73,18 +73,15 @@ const productSchema = new mongoose.Schema({
         requried:true
     },
 
-    bidding:[{
-        bidder:{
-                type:mongoose.Schema.Types.ObjectId,
-                ref:"User"
-        },
-        price:{
-            type:Number
-        },
-        bidDesc:{
-             type:String
-        }
-    }]
+    bids: [
+        { type: mongoose.Schema.Types.ObjectId, ref: 'Bid' }
+    ],
+    sold:{
+        type:String,
+        default:"no"
+    }
+
+ 
 
 })
 

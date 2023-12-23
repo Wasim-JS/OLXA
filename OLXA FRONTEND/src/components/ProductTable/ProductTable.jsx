@@ -94,7 +94,7 @@ const ProductTable = ({product}) => {
               
             </TableRow>
 
-            <h3 style={{margin:20,backgroundColor:"white",padding:25,width:"100%",textAlign:'center'}}>Owner Information</h3>
+            <h3 style={{margin:20,backgroundColor:"white",padding:25,width:"100%",textAlign:'center',textDecoration:'underline'}}> Owner&#39;s Contact Information</h3>
 
             <TableRow
            

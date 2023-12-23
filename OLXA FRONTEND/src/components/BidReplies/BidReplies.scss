@@ -1,0 +1,38 @@
+.bid-rples{
+    width: 100%;
+    height: auto;
+    margin: 5px 0px;
+    display: flex;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);
+
+    >.bid-rples-img{
+        width: 10%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        >img{
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            object-fit: cover;
+
+        }
+    }
+
+    >.bid-rples-info{
+        width: 90%;
+        height: 100%;
+
+       >.rely-name{
+        font-weight: 800;
+
+       }
+       >.reply-time{
+        color: gray;
+        font-size: 12px;
+       }
+    }
+}

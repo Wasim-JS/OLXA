@@ -8,7 +8,7 @@ export async function reletedProducts() {
     console.log(error);
   }
 }
-export async function relatedCityProducts() {
+export async function allProducts() {
   try {
     const reletedProducts = await axios.get("/api/v1/product/all-products"
     );

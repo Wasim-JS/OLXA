@@ -3,6 +3,8 @@ import { uploadImageToCloud } from "../utils/HandleImageUpload.js";
 import { throwCustomHandler } from "../utils/throwCustomError.js";
 import {productModel} from '../models/productModel.js'
 import FilterSearch from "../utils/FilterSearch.js";
+import { bidModel } from "../models/BidsModel.js";
+import { registerModel } from "../models/registerModel.js";
 export const createProduct = asyncErrorHandler(async(req,res,next)=>{
 
     const images = req.files;
@@ -47,8 +49,9 @@ export const getProductRelatedToUser = asyncErrorHandler(async(req,res,next)=>{
 })
 
 
-export const allProducts = asyncErrorHandler(async(req,res,next)=>{
+export const allProducts = asyncErrorHandler(async(_,res,next)=>{
 
+    
     const products = await productModel.find()
 
     return res.status(200).json({
@@ -61,7 +64,15 @@ export const getProductBasedOnId = asyncErrorHandler(async(req,res,next)=>{
 
     const id = req.params.id
 
-    const product = await productModel.findById(id).populate('owner')
+    const product = await productModel.findById(id)
+    .populate('owner bids')
+    .populate({
+      path: 'bids',
+      populate: {
+        path: 'bidder',
+        model: 'User'
+      }
+    })
 
     if(!product) return new throwCustomHandler(404,"Product Not Found")
 
@@ -102,6 +113,73 @@ export const getFilterProducts = asyncErrorHandler(async(req,res,next)=>{
 
 
 })
+
+
+export const createBids = asyncErrorHandler(async(req,res,next)=>{
+
+    const {productId,bidPrice} = req.body;
+             
+        //  raise a bid
+        req.body = {...req.body,bidPrice:Number(bidPrice),bidder:req.user._id}
+            const bid = new bidModel(req.body)
+            await bid.save()
+            
+            // add bid id to product
+             const product = await productModel.findById(productId)
+             if(!product) return new throwCustomHandler(404,"Product Not Found") 
+
+             product.bids.push(bid._id)
+             await product.save({validateBeforeSave:false})
+            
+            //  give notification to user
+             const notifiUser = await registerModel.findById(req.user._id)
+
+             notifiUser.noOfNotifications +=1;
+             let notificationToAdd = {
+
+                notificationDesc:`You Have a New Bid Raised On ${product?.name}`,
+                gotoProduct:product._id.toString()
+             }
+             console.log("notificationToAdd "+notificationToAdd);
+             notifiUser.notifications.push(notificationToAdd)
+
+             await notifiUser.save({validateBeforeSave:false})
+
+            return res.status(201).json({
+                success:true,
+                message:'Bid Raised Successfully'
+            })
+  
+
+
+})
+
+export const deleteBid = asyncErrorHandler(async(req,res,next)=>{
+
+    const {bidId,productId} = req.body
+    console.log('delete')
+    console.log(bidId,productId)
+
+   await bidModel.findByIdAndDelete(bidId)
+
+   const product = await productModel.findById(productId)
+   if(!product) return new throwCustomHandler(404,"Product Not Found") 
+
+   const newBids =  product.bids.filter(bid=>bid._id.toString() !== productId.toString())
+   product.bids = newBids
+
+   await product.save({validateBeforeSave:false})
+
+                return res.status(200).json({
+                    success:true,
+                    message:'Bid Deleted Successfully'
+                })
+   
+
+})
+
+
+
 
 
 

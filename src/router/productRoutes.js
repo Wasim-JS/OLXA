@@ -1,5 +1,5 @@
 import express from 'express'
-import { allProducts, createProduct, getFilterProducts, getProductBasedOnId, getProductRelatedToUser } from '../controllers/productControllers.js'
+import { allProducts, createBids, createProduct, deleteBid, getFilterProducts, getProductBasedOnId, getProductRelatedToUser } from '../controllers/productControllers.js'
 import { upload } from '../utils/HandleImageUpload.js'
 import { tokenMiddleWare } from '../middlewares/authMiddleware.js'
 
@@ -17,8 +17,15 @@ router.get('/all-products',tokenMiddleWare,allProducts)
 // get Filtred Products
 router.get('/filter-products',getFilterProducts)
 
+// raise a bid
+router.post('/bid/',tokenMiddleWare,createBids)
+
+// delete a bid
+router.post('/deletebid/',tokenMiddleWare,deleteBid)
+
 // get product Based on Id
 router.get('/single/:id',tokenMiddleWare,getProductBasedOnId)
+
 
 
 

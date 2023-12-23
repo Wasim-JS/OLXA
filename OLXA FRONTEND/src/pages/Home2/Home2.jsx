@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 const Home2 = () => {
 
      const { productsData } = useSelector((state) => state.product);
-  const { user } = useSelector((state) => state.user);
+     const { user } = useSelector((state) => state.user);
+     console.log(user)
   return (
    <Layout>
     <section className='home2'>

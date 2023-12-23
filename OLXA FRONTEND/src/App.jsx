@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { updateUserDataOnLogin } from './redux-store/userSlice';
 import {sendToken} from './utiles/userFetch'
-import { relatedCityProducts } from './utiles/FetchReletedRecords';
+import { allProducts } from './utiles/FetchReletedRecords';
 import { addProducts } from './redux-store/productsSlice';
 function App() {
 
@@ -15,7 +15,7 @@ function App() {
   useEffect(()=>{
     const token = Cookies.get('token');
 
-    relatedCityProducts().then(data => dispatch(addProducts(data?.products)))
+    allProducts().then(data => dispatch(addProducts(data?.products)))
     .catch(error=>console.log(error))
     if(token){
       sendToken().then(data=>{

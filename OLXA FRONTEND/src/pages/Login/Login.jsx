@@ -8,7 +8,7 @@ import axios from 'axios';
 import {useDispatch} from 'react-redux'
 import { updateUserDataOnLogin } from '../../redux-store/userSlice';
 import useAlert from '../../Custom Hooks/alert';
-import { relatedCityProducts } from '../../utiles/FetchReletedRecords';
+import { allProducts } from '../../utiles/FetchReletedRecords';
 import { addProducts } from '../../redux-store/productsSlice';
 const Login = () => {
   const navigate = useNavigate()
@@ -33,7 +33,7 @@ const Login = () => {
       navigate('/home2')
       
       
-      relatedCityProducts().then(data => dispatch(addProducts(data.products)))
+      allProducts().then(data => dispatch(addProducts(data.products)))
       .catch(error=>console.log(error))
       
     } catch (error) {
