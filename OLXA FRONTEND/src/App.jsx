@@ -34,6 +34,9 @@ function App() {
       },
       main:{
         main: "#D53A3A",
+      },
+      green:{
+        main: "#008060",
       }
     },
   });

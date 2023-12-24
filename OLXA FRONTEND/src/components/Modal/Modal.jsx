@@ -1,18 +1,53 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Modal.scss'
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import useAlert from '../../Custom Hooks/alert'
+import { sendToken } from '../../utiles/userFetch';
+import {useDispatch} from 'react-redux'
+import { updateUserDataOnLogin } from '../../redux-store/userSlice';
+import { clearAllNotifications } from '../../utiles/FetchReletedRecords';
+
 
 
 const Modals = ({children}) => {
+  const dispatch = useDispatch()
   const { user } = useSelector((state) => state.user);
     const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [alertFun] = useAlert()
+
+
+
+
+
+
+
+  
+
+  const handelClearNotifications = async() =>{
+    try {
+      clearAllNotifications(2).then(data=>{
+
+        sendToken().then(data=>{
+          dispatch(updateUserDataOnLogin(data))
+  
+        }).catch(error=>console.log(error))
+        alertFun('success',data.message)
+        
+      })
+     
+    } catch (error) {
+      console.log(error);
+      alertFun('error while clearing notifications ',error.message)
+    }
+  }
 
   return (
 
@@ -32,7 +67,7 @@ const Modals = ({children}) => {
         <Typography id="keep-mounted-modal-description" sx={{ mt: 1 }}>
 
           <div className='clear-noti-btn'>
-            <button>Clear All</button>
+            <button onClick={handelClearNotifications} >Clear All</button>
           </div>
           
           {

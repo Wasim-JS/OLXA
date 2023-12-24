@@ -1,5 +1,8 @@
 import axios from "axios";
 
+
+
+
 export async function reletedProducts() {
   try {
     const reletedProducts = await axios.get("/api/v1/product/reletedProducts");
@@ -23,6 +26,17 @@ export async function fetchProductBasedOnId(id) {
     return reletedProducts.data;
   } catch (error) {
     console.log(error);
+  }
+}
+export async function clearAllNotifications(num) {
+
+ 
+  try {
+    const clearNotifications = await axios.get("/api/v1/product/clear-notifications");
+      return clearNotifications.data;
+
+  } catch (error) {
+    console.log('error while clearing the notifications',error);
   }
 }
 

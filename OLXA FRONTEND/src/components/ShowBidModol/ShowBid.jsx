@@ -16,11 +16,19 @@ const ShowBid = ({children,productId,fetchProduct}) => {
 
     const submitBithandler = async () =>{
       const {bidPrice,bidDesc} = bid;
+      
+      if(isNaN(bidPrice))
+      {
+        alertFun('error','Please Enter the Valid Price')
+        return
+      }
+
       if([bidPrice,bidDesc].some(field=>field===""))
       {
         alertFun('error','All Fields are requried')
         return
       }
+      
 
       let bidder = {
         bidPrice:bid.bidPrice,

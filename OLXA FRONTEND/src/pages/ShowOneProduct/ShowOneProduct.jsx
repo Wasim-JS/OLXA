@@ -94,6 +94,7 @@ const ShowOneProduct = () => {
                       key={bid?._id}
                       bid={bid}
                       productId={product?._id}
+                      productOwner={product?.owner}
                       fetchProduct={fetchProduct}
                     />
                   ))

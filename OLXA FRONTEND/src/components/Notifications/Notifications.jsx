@@ -3,8 +3,11 @@ import Modals from "../Modal/Modal";
 import Badge from "@mui/material/Badge";
 import { useSelector } from "react-redux";
 
+
+
 const Notifications = () => {
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user); 
+ 
   return (
     <Modals>
       <Badge

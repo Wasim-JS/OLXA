@@ -6,11 +6,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {formatter} from '../../utiles/showMoney'
+import Badge from '@mui/material/Badge';
 
 const ProductTable = ({product}) => {
     
 
-    const {name,year,price,hasWarranty,hasBill,desc,owner} = product;
+    const {name,year,price,hasWarranty,hasBill,desc,owner,sold} = product;
     console.log("product is ", product)
 
   return (
@@ -91,6 +92,17 @@ const ProductTable = ({product}) => {
                Description
               </TableCell>
               <TableCell align="right">{desc}</TableCell>
+              
+            </TableRow>
+
+            <TableRow
+           
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+               sold status
+              </TableCell>
+              <TableCell align="right"> <Badge badgeContent={sold==='no'?'UNSOLD':'SOLD'} sx={{color:"white",marginRight:5}} color={`${sold==='no'?'green':'main'}`}/></TableCell>
               
             </TableRow>
 

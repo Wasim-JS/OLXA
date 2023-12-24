@@ -65,13 +65,13 @@ export const getProductBasedOnId = asyncErrorHandler(async(req,res,next)=>{
     const id = req.params.id
 
     const product = await productModel.findById(id)
-    .populate('owner bids')
+    .populate('owner') // populate the owner field with the User document
     .populate({
       path: 'bids',
-      populate: {
-        path: 'bidder',
-        model: 'User'
-      }
+      populate: [
+        { path: 'bidder', model: 'User' }, // populate the bidder field within bid with the User document
+        { path: 'replies.sender', model: 'User' } // populate the sender field within the replies array with the User document
+      ]
     })
 
     if(!product) return new throwCustomHandler(404,"Product Not Found")
@@ -164,9 +164,11 @@ export const deleteBid = asyncErrorHandler(async(req,res,next)=>{
 
    const product = await productModel.findById(productId)
    if(!product) return new throwCustomHandler(404,"Product Not Found") 
+      
 
-   const newBids =  product.bids.filter(bid=>bid._id.toString() !== productId.toString())
+   const newBids =  product.bids.filter(bid=>bid.toString() !== bidId)
    product.bids = newBids
+
 
    await product.save({validateBeforeSave:false})
 
@@ -177,6 +179,65 @@ export const deleteBid = asyncErrorHandler(async(req,res,next)=>{
    
 
 })
+
+
+export const clearNotification = asyncErrorHandler(async(req,res,next)=>{
+       
+
+    console.log('cleared')
+       const user = await registerModel.findById(req.user._id)
+       user.noOfNotifications = 0
+        user.notifications = []
+
+       user.save({validateBeforeSave:false})
+
+       return res.status(200).json({
+        success:true,
+        message:'All Notifications Cleared...'
+    })
+
+
+})
+
+export const enterBidReplies = asyncErrorHandler(async(req,res,next)=>{
+
+    const {productOwner,message,bidId,productId} = req.body
+
+    const bid = await bidModel.findById(bidId)
+
+    if(!bid) return new throwCustomHandler(404,"Bid Not Found") 
+    const reply = {
+        sender: req.user._id,
+        message
+
+     }
+
+    bid.replies = [...bid.replies,reply]
+    await bid.save({validateBeforeSave:false})
+
+    const pOwner = await registerModel.findById(productOwner)
+
+    const product = await productModel.findById(productId).select('+name +_id')
+   if(!product) return new throwCustomHandler(404,"Product Not Found") 
+
+    pOwner.noOfNotifications +=1;
+             let notificationToAdd = {
+
+                notificationDesc:`You Have a New Message On ${product?.name}`,
+                gotoProduct:product?._id
+             }
+             pOwner.notifications.push(notificationToAdd)
+
+             await pOwner.save({validateBeforeSave:false})
+
+
+    return res.status(200).json({
+        success:true,
+        message:'Thanks for Reply'
+    })
+
+})
+
 
 
 

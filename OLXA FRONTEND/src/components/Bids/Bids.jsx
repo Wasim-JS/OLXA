@@ -4,16 +4,38 @@ import BidReplies from '../BidReplies/BidReplies'
 import { MdDelete } from "react-icons/md";
 import axios from 'axios';
 import useAlert from '../../Custom Hooks/alert';
+import { BsSendFill } from "react-icons/bs";
+import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
+import { PiChatsCircleFill } from "react-icons/pi";
 
-const Bids = ({bid,productId,fetchProduct}) => {
+
+
+const Bids = ({bid,productId,fetchProduct,productOwner}) => {
     const[showReply,setShowReply]=useState(false)
     const[showReples,setShowReples]=useState(false)
     const[postBidRply,setPostBidRply]=useState("")
-    console.log(bid?.bidder?.avatar?.[0])
+    console.log('bidder ',bid)
     const [alertFun] = useAlert()
 
-    const handleBidReply = () =>{
-        console.log(postBidRply)
+    const handleBidReply = async (bidId,productOwner) =>{
+
+        const det = {
+            productOwner,
+            productId,
+            message:postBidRply,
+            bidId
+
+        }
+        try {
+            const addBidReplies = await axios.post("/api/v1/product/bid-replies",det);
+            const res = await addBidReplies.data;
+            setPostBidRply('')
+            alertFun('success',res.message)
+            fetchProduct(productId)
+          } catch (error) {
+            console.log(error);
+            alertFun('error while clearing notifications ',error.message)
+          }
     }
 
     const handelDeleteBid =async(id) =>{
@@ -37,7 +59,7 @@ const Bids = ({bid,productId,fetchProduct}) => {
     <div className='singleBid'>
         <div className='del-bid'><MdDelete onClick={()=>handelDeleteBid(bid?._id)} size={20} /></div>
         <div className="bidder-img">
-            <img src={bid?.bidder?.avatar?.[0]?.cloudLink} alt="" />
+            <img src={bid?.bidder?.avatar?.[0].cloudLink} alt="" />
         </div>
         <div className="bidder-info">
 
@@ -54,10 +76,10 @@ const Bids = ({bid,productId,fetchProduct}) => {
 
             <div className='replayBtn'>
                 <button onClick={()=>setShowReply(prev=>!prev)} className='replay'>
-                    reply
+                <IoChatbubbleEllipsesSharp /> Chat
                 </button>
 
-                <button onClick={()=>setShowReples(prev=>!prev)} className='see-replies'>See replies</button>
+                <button onClick={()=>setShowReples(prev=>!prev)} className='see-replies'><PiChatsCircleFill />See Chats</button>
             </div>
 
         </div>
@@ -67,12 +89,12 @@ const Bids = ({bid,productId,fetchProduct}) => {
         <div className={`replayToBid ${showReply?"show-reply":""}`}>
 
             <div className='replaytothebid'>
-                Reply
+                Message
             </div>
 
-            <textarea value={postBidRply} onChange={(e)=>setPostBidRply(e.target.value)} name="" id="" cols="30" placeholder='Reply' rows="10"></textarea>
+            <textarea value={postBidRply} onChange={(e)=>setPostBidRply(e.target.value)} name="" id="" cols="30" placeholder='Write Your Message Here...' rows="10"></textarea>
 
-            <button className='reply-btn' onClick={handleBidReply}>Reply</button>
+            <button className='reply-btn' onClick={()=>handleBidReply(bid._id,productOwner)}><BsSendFill />send</button>
 
         </div>
 
@@ -82,7 +104,16 @@ const Bids = ({bid,productId,fetchProduct}) => {
             <p style={{textAlign:"center",fontWeight:800,textDecoration:"underline"}}>Replies</p>
 
             <div className='replies'>
-                <BidReplies />
+                {
+                    bid?.replies.length>0?(
+                    bid?.replies?.map(b=>(
+                        <BidReplies key={b._id} replies={b}  />
+                    ))
+                    ):(
+                        <div>No Chats Yet..</div>
+                    )
+                }
+                
             </div>
 
 
