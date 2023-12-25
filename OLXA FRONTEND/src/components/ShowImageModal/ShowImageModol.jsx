@@ -22,7 +22,7 @@ const ShowImageModol = () => {
         className='modelImage'
       >
         <Box  className="box">
-           <div className='btn' onClick={()=>dispatch(closeImage())}><IoClose size={30} color='white'/></div>
+           <div style={{cursor:"pointer"}} className='btn' onClick={()=>dispatch(closeImage())}><IoClose size={30} color='white'/></div>
           <img  src={imageUrl} alt="" />
         </Box>
       </Modal>

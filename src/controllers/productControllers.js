@@ -132,7 +132,7 @@ export const createBids = asyncErrorHandler(async(req,res,next)=>{
              await product.save({validateBeforeSave:false})
             
             //  give notification to user
-             const notifiUser = await registerModel.findById(req.user._id)
+             const notifiUser = await registerModel.findById(product?.owner?._id)
 
              notifiUser.noOfNotifications +=1;
              let notificationToAdd = {
@@ -201,7 +201,7 @@ export const clearNotification = asyncErrorHandler(async(req,res,next)=>{
 
 export const enterBidReplies = asyncErrorHandler(async(req,res,next)=>{
 
-    const {productOwner,message,bidId,productId} = req.body
+    const {toSendNoti,message,bidId,productId} = req.body
 
     const bid = await bidModel.findById(bidId)
 
@@ -215,20 +215,20 @@ export const enterBidReplies = asyncErrorHandler(async(req,res,next)=>{
     bid.replies = [...bid.replies,reply]
     await bid.save({validateBeforeSave:false})
 
-    const pOwner = await registerModel.findById(productOwner)
+    const toSend = await registerModel.findById(toSendNoti)
 
     const product = await productModel.findById(productId).select('+name +_id')
    if(!product) return new throwCustomHandler(404,"Product Not Found") 
 
-    pOwner.noOfNotifications +=1;
+   toSend.noOfNotifications +=1;
              let notificationToAdd = {
 
                 notificationDesc:`You Have a New Message On ${product?.name}`,
                 gotoProduct:product?._id
              }
-             pOwner.notifications.push(notificationToAdd)
+             toSend.notifications.push(notificationToAdd)
 
-             await pOwner.save({validateBeforeSave:false})
+             await toSend.save({validateBeforeSave:false})
 
 
     return res.status(200).json({

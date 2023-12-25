@@ -79,10 +79,14 @@ const productSchema = new mongoose.Schema({
     sold:{
         type:String,
         default:"no"
+    },
+    time:{
+        type:String,
+        default:Date.now()
     }
 
  
 
-})
+},{timestamps:true})
 
 export const productModel = mongoose.model('Product',productSchema)

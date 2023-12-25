@@ -117,6 +117,7 @@ const SellInfoForm = () => {
     sendFormData.append("pimages", pimages[1]);
     sendFormData.append("pimages", pimages[2]);
     sendFormData.append('owner',user._id ); 
+    sendFormData.append('time',Date.now()); 
     handleStepper(3)
 
     try {

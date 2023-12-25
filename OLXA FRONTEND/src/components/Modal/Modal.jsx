@@ -67,7 +67,7 @@ const Modals = ({children}) => {
         <Typography id="keep-mounted-modal-description" sx={{ mt: 1 }}>
 
           <div className='clear-noti-btn'>
-            <button onClick={handelClearNotifications} >Clear All</button>
+            <button onClick={handelClearNotifications} style={{backgroundColor:`${user?.notifications?.length>0?"red":"gray"}`}} disabled={user?.notifications?.length===0} >Clear All</button>
           </div>
           
           {

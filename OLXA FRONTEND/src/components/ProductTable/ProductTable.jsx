@@ -7,13 +7,13 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {formatter} from '../../utiles/showMoney'
 import Badge from '@mui/material/Badge';
+import { postedTime } from '../../utiles/PostedTime';
+
 
 const ProductTable = ({product}) => {
     
 
-    const {name,year,price,hasWarranty,hasBill,desc,owner,sold} = product;
-    console.log("product is ", product)
-
+    const {name,year,price,hasWarranty,hasBill,desc,owner,sold,time} = product;
   return (
     <TableContainer component={Paper}>
         <h2 style={{margin:30}}>Product Information</h2>
@@ -95,6 +95,20 @@ const ProductTable = ({product}) => {
               
             </TableRow>
 
+           
+           
+            <TableRow
+           
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+               Posted On
+              </TableCell>
+              <TableCell align="right">{postedTime(time || "")}</TableCell>
+              
+            </TableRow>
+
+
             <TableRow
            
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -115,7 +129,7 @@ const ProductTable = ({product}) => {
            <TableCell component="th" scope="row">
             Owner Name
            </TableCell>
-           <TableCell align="right">{owner?.name}</TableCell>
+           <TableCell align="right" style={{fontWeight:800}}>{owner?.name}</TableCell>
            
          </TableRow>
 

@@ -7,10 +7,12 @@ import useAlert from '../../Custom Hooks/alert';
 import { BsSendFill } from "react-icons/bs";
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { PiChatsCircleFill } from "react-icons/pi";
+import {useSelector} from 'react-redux'
 
 
 
 const Bids = ({bid,productId,fetchProduct,productOwner}) => {
+    const {user} = useSelector(state=>state.user)
     const[showReply,setShowReply]=useState(false)
     const[showReples,setShowReples]=useState(false)
     const[postBidRply,setPostBidRply]=useState("")
@@ -18,9 +20,18 @@ const Bids = ({bid,productId,fetchProduct,productOwner}) => {
     const [alertFun] = useAlert()
 
     const handleBidReply = async (bidId,productOwner) =>{
+        let toSendNoti = ''
+     
+        if( user._id === productOwner?._id)
+        {
+            toSendNoti = bid.bidder?._id
+        }else{
+            toSendNoti = productOwner?._id
+
+        }
 
         const det = {
-            productOwner,
+            toSendNoti,
             productId,
             message:postBidRply,
             bidId
@@ -94,7 +105,7 @@ const Bids = ({bid,productId,fetchProduct,productOwner}) => {
 
             <textarea value={postBidRply} onChange={(e)=>setPostBidRply(e.target.value)} name="" id="" cols="30" placeholder='Write Your Message Here...' rows="10"></textarea>
 
-            <button className='reply-btn' onClick={()=>handleBidReply(bid._id,productOwner)}><BsSendFill />send</button>
+            <button className='reply-btn' onClick={()=>handleBidReply(bid._id,productOwner,bid?.bidder)}><BsSendFill />send</button>
 
         </div>
 

@@ -9,6 +9,14 @@ import { updateUserDataOnLogin } from './redux-store/userSlice';
 import {sendToken} from './utiles/userFetch'
 import { allProducts } from './utiles/FetchReletedRecords';
 import { addProducts } from './redux-store/productsSlice';
+import { postedTime } from './utiles/PostedTime';
+
+console.log("posted time ",postedTime(1703501909945))
+
+
+
+
+
 function App() {
 
   const dispatch = useDispatch()

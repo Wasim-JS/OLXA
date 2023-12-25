@@ -14,14 +14,18 @@ import { TbHammer } from "react-icons/tb";
 import ShowBid from "../../components/ShowBidModol/ShowBid";
 import Bids from "../../components/Bids/Bids";
 
+
 const ShowOneProduct = () => {
   const dispatch = useDispatch();
   const imageUrl = useSelector((state) => state.image);
+  const {user} = useSelector(state=>state.user)
   console.log(imageUrl);
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
-
+  console.log('the user is ',user?._id !== product?.owner?._id)
+  console.log("bids ",product?.bids?.findIndex(b=>b.bidder?._id === user?._id))
+  
   useEffect(() => {
     window.scrollTo(0, 0);
     setLoading(true);
@@ -43,6 +47,7 @@ const ShowOneProduct = () => {
       setLoading(false);
     });
   }
+  let flag = product?.bids?.findIndex(b=>b.bidder?._id === user?._id)
   return (
     <Layout>
       {!loading ? (
@@ -80,11 +85,16 @@ const ShowOneProduct = () => {
         <ProductTable product={product} />
 
         <div className="bit-sec">
-          <ShowBid productId={product._id} fetchProduct={fetchProduct}>
-            <button className="raise-bid-btn" style={{ margin: 20 }}>
-              <TbHammer /> Raise a Bid
-            </button>
-          </ShowBid>
+            
+            {
+             
+              (user?._id !== product?.owner?._id && flag === -1) &&  <ShowBid productId={product._id} fetchProduct={fetchProduct}>
+              <button className="raise-bid-btn" style={{ margin: 20 ,cursor:"pointer"}}>
+                <TbHammer /> Raise a Bid
+              </button>
+            </ShowBid>
+            }
+         
 
           <div className="bidsHeading">Bids</div>
           <div className="showAllBids">

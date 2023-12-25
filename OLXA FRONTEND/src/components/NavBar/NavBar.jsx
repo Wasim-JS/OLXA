@@ -61,7 +61,12 @@ const NavBar = () => {
           
           <div className='auth'>
           {
-            isLoggedIn? (<ProfileImage pimage={user?.avatar[0]?.cloudLink}/>) : (
+            isLoggedIn? (
+              <>
+              <span style={{margin:"0px 10px",fontWeight:800}}>{user?.name.toUpperCase()}</span>
+            <ProfileImage pimage={user?.avatar[0]?.cloudLink}/>
+              </>
+            ) : (
               <>
               <ul className='authroutes'>
               <li>

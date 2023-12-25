@@ -1,6 +1,7 @@
 import './ProductCard.scss'
 import { formatter } from '../../utiles/showMoney'
 import { Link } from 'react-router-dom'
+import { postedTime } from '../../utiles/PostedTime'
 
 const ProductCard = ({product}) => {
   return (
@@ -14,6 +15,7 @@ const ProductCard = ({product}) => {
         <p>{product.name}</p>
         <p className='price'>{formatter.format(product?.price)?.split('.')[0]}</p>
         <p className='address'>{product.street} | {product.city}</p>
+        <p className='address'>{postedTime(product?.time)|| ''}</p>
 
      </div>
     </div>
