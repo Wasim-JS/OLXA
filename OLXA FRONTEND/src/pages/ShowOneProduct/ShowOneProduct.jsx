@@ -88,7 +88,7 @@ const ShowOneProduct = () => {
             
             {
              
-              (user?._id !== product?.owner?._id && flag === -1) &&  <ShowBid productId={product._id} fetchProduct={fetchProduct}>
+              (user?._id !== product?.owner?._id && flag === -1 && user?.role !=='admin') &&  <ShowBid productId={product._id} fetchProduct={fetchProduct}>
               <button className="raise-bid-btn" style={{ margin: 20 ,cursor:"pointer"}}>
                 <TbHammer /> Raise a Bid
               </button>

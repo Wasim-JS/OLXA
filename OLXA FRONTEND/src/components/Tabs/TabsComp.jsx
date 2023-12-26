@@ -8,8 +8,10 @@ import Profile from '../../pages/Profile/Profile'
 import Layout from '../Layout/Layout';
 import SellInfoForm from '../SellInfoForm/SellInfoForm';
 import SellDetails from '../SellDetails/SellDetails';
+import {useSelector} from 'react-redux'
 
 function CustomTabPanel(props) {
+
   const { children, value, index, ...other } = props;
 
   return (
@@ -43,6 +45,7 @@ function a11yProps(index) {
 }
 
 export default function TabsComp() {
+  const {user} = useSelector(state => state.user)
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -54,21 +57,35 @@ export default function TabsComp() {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Profile" {...a11yProps(0)} />
-          <Tab label="Sell" {...a11yProps(1)} />
-          <Tab label="Your Store" {...a11yProps(2)} />
+         
+
+               <Tab label="Profile" {...a11yProps(0)} />
+              {
+                user?.role !=='admin' && <Tab label="Sell" {...a11yProps(1)} />
+              }  
+              {
+                user?.role !=='admin' && <Tab label="Your Store" {...a11yProps(2)} />
+              }  
+                
+      
+  
+        
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
              <Profile />
         
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-          <SellInfoForm />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        <SellDetails />
-      </CustomTabPanel>
+
+        <CustomTabPanel value={value} index={1}>
+        <SellInfoForm />
+    </CustomTabPanel>
+    <CustomTabPanel value={value} index={2}>
+      <SellDetails />
+    </CustomTabPanel>
+  
+     
+  
     </Box>
     </Layout>
   );

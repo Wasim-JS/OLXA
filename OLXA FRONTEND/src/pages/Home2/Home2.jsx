@@ -11,7 +11,7 @@ const Home2 = () => {
    <Layout>
     <section className='home2'>
         {<>
-             <h2 style={{textAlign:"center",margin:20}}>{`Hi ${user?.name}, Here is The Fresh recommendations for you`}</h2>
+             <h2 style={{textAlign:"center",margin:20}}>{user?.role==='admin'?(`Hi Admin(${user?.name}) Checkout What's New `):(`Hi ${user?.name}, Here is The Fresh recommendations for you`)}</h2>
              <div className='show-products'>
               
                {
@@ -20,7 +20,6 @@ const Home2 = () => {
                     ))
                }
 
-                 
           
               
              </div>

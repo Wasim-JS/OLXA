@@ -153,3 +153,30 @@ export const logout = asyncErrorHandler(async(req,res,next)=>{
         message:"Logout Successfull..",
     })
 })
+
+export const changePassword = asyncErrorHandler(async(req,res,next)=>{
+    const {oldPassword,newPassword} = req.body;
+
+    if([oldPassword,newPassword].some(field=> field === ""))
+        {
+            return next(new throwCustomHandler(400,"All Fields are requried"));
+        }
+
+
+        const user = await registerModel.findById(req.user._id).select("+password")
+
+        if(!user) return next(new throwCustomHandler(400,"User Not Found"));
+
+        const isMatchPassword = await user.checkPassword(oldPassword)
+
+        if(!isMatchPassword) return next(new throwCustomHandler(400,"Old Password is Wrong"));
+
+        user.password = newPassword;
+        await user.save({validateBeforeSave:false})
+
+        return res.status(200).json({
+            success:true,
+            message:"Password Changed Successfully"
+        })
+
+})

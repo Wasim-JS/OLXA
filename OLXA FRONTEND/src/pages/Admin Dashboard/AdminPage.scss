@@ -1,0 +1,60 @@
+@import '../../assets/mixin';
+
+.admin-page-sec{
+    width: 70%;
+    height: auto;
+    margin: 0 auto;
+    padding-top: 20px;
+    @include small-screen {
+        width: 100%;
+    }
+
+    >.admin-heading{
+        text-align: center;
+        text-decoration: underline;
+        font-size: 30px;
+        
+        
+        
+    }
+
+    .pie-charts{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 0px;
+
+        .pie-heading{
+            font-family: 800;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 30px;
+            margin: 20px;
+            text-decoration: underline;
+            align-self: flex-start;
+            @include small-screen {
+                font-size: 25px;
+            }
+        }
+    }
+
+
+    .productToApprove{
+        width: 95%;
+        height: auto;
+        margin: 30px 0px;
+        display: flex;
+        // justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        .approve-heading{
+            font-size: 30px;
+            margin: 20px;
+            text-decoration: underline;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+       
+    }
+
+}

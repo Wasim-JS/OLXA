@@ -14,6 +14,8 @@ import TabsComp from "../components/Tabs/TabsComp";
 import ShowOneProduct from "./ShowOneProduct/ShowOneProduct";
 import Home2 from "./Home2/Home2";
 import PageNotFound from "./404 Page/PageNotFound";
+import ChangePassword from "./ChangePassword/ChangePassword";
+import AdminPage from "./Admin Dashboard/AdminPage";
 
 export const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -35,6 +37,8 @@ export const routes = createBrowserRouter(
       <Route element={<IsLogin />}>
         <Route path="/profile" element={<TabsComp/>} />
         <Route path="/home2" element={<Home2/>} />
+        <Route path="/changePassword" element={<ChangePassword />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Route>
         <Route path="*" element={<PageNotFound/>} />
     </>
