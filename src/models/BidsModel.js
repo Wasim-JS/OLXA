@@ -15,6 +15,9 @@ const bidSchmea = new mongoose.Schema({
     bidDesc:{
         type:String,
     },
+    postedOn:{
+        type:String,
+    },
     replies:[
        {
             sender:{
@@ -23,7 +26,10 @@ const bidSchmea = new mongoose.Schema({
             },
             message:{
                 type:String
-            }
+            },
+            postedOn:{
+                type:String,
+            },
        }
     ]
 

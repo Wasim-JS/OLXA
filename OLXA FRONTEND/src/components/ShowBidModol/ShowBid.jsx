@@ -33,7 +33,8 @@ const ShowBid = ({children,productId,fetchProduct}) => {
       let bidder = {
         bidPrice:bid.bidPrice,
         bidDesc:bid.bidDesc,
-        productId
+        productId,
+        postedOn:Date.now()
 
       }
  

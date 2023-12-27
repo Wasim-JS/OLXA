@@ -1,3 +1,4 @@
+import { postedTime } from '../../utiles/PostedTime'
 import './BidReplies.scss'
 
 const BidReplies = ({replies}) => {
@@ -10,7 +11,7 @@ const BidReplies = ({replies}) => {
         </div>
         <div className='bid-rples-info'>
             <p className='rely-name'>{replies?.sender?.name}</p>
-            <p className='reply-time'>2 min ago</p>
+            <p className='reply-time'>{postedTime(replies?.postedOn || "")}</p>
             <p className='rply-desc'>
               {replies.message}
             </p>

@@ -13,6 +13,8 @@ export const tokenMiddleWare = async(req,res,next) =>{
 
     let user = await registerModel.findById({_id:id})
 
+    if(!user) return next (new throwCustomHandler(401,'UnAuthorized Access'))
+
     req.user = user;
     next();
 

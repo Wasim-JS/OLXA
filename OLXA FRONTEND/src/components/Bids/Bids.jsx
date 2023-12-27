@@ -8,6 +8,7 @@ import { BsSendFill } from "react-icons/bs";
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { PiChatsCircleFill } from "react-icons/pi";
 import {useSelector} from 'react-redux'
+import { postedTime } from '../../utiles/PostedTime';
 
 
 
@@ -34,7 +35,8 @@ const Bids = ({bid,productId,fetchProduct,productOwner}) => {
             toSendNoti,
             productId,
             message:postBidRply,
-            bidId
+            bidId,
+            postedOn:Date.now()
 
         }
         try {
@@ -75,7 +77,7 @@ const Bids = ({bid,productId,fetchProduct,productOwner}) => {
         <div className="bidder-info">
 
             <p className='name'>{bid?.bidder?.name}</p>
-            <p className='date'>3 min Ago</p>
+            <p className='date'>{postedTime(bid?.postedOn || '')}</p>
 
 
             <p style={{margin:"10px 0px"}}><span>Bid Price :</span><span style={{fontWeight:800}}>{bid?.bidPrice}</span></p>
@@ -84,14 +86,17 @@ const Bids = ({bid,productId,fetchProduct,productOwner}) => {
                 {bid?.bidDesc}
 
             </p>
+          
+          {
+            (user?._id === bid?.bidder?._id || user?._id === productOwner?._id) && <div className='replayBtn'>
+                                                <button onClick={()=>setShowReply(prev=>!prev)} className='replay'>
+                                                <IoChatbubbleEllipsesSharp /> Chat
+                                                </button>
 
-            <div className='replayBtn'>
-                <button onClick={()=>setShowReply(prev=>!prev)} className='replay'>
-                <IoChatbubbleEllipsesSharp /> Chat
-                </button>
-
-                <button onClick={()=>setShowReples(prev=>!prev)} className='see-replies'><PiChatsCircleFill />See Chats</button>
-            </div>
+                 <button onClick={()=>setShowReples(prev=>!prev)} className='see-replies'><PiChatsCircleFill />See Chats</button>
+        </div>
+          }
+            
 
         </div>
 

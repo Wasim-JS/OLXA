@@ -10,6 +10,11 @@ import Paper from '@mui/material/Paper';
 import {useSelector} from 'react-redux'
 import { MdDeleteOutline } from "react-icons/md";
 import { MdDoneOutline } from "react-icons/md";
+import axios from 'axios';
+import useAlert from '../../Custom Hooks/alert';
+import { allProducts } from '../../utiles/FetchReletedRecords';
+import { addProducts } from '../../redux-store/productsSlice';
+import {useDispatch} from 'react-redux'
 
 
 
@@ -37,16 +42,43 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   
 
 const ApproveTable = () => {
+    const dispatch = useDispatch()
     const product = useSelector(state=>state.product)
     const proToApprove = product?.productsData.filter(product =>product.approved === false)
-const handleApprove = (id) =>{
+    const [alertFun] = useAlert();
+    
 
-    alert(id)
+
+
+const handleDelete = async (id) =>{
+
+    try {
+      const deleteProduct = await axios.delete(`/api/v1/product/delete-product/${id}`);
+        const res =  deleteProduct.data;
+        alertFun('success',res.message);
+        allProducts().then(data => dispatch(addProducts(data?.products)))
+        .catch(error=>console.log(error))
+    } catch (error) {
+      console.log('error while deleting the product',error);
+      alertFun('error','error while deleting the product');
+    }
+
+    
     
 }
-const handleDelete = (id) =>{
+const handleApprove = async (id) =>{
     
-    alert(id)
+    try {
+      const approveProduct = await axios.patch(`/api/v1/product/approve-product/${id}`);
+        const res =  approveProduct.data;
+        alertFun('success',res.message);
+        allProducts().then(data => dispatch(addProducts(data?.products)))
+        .catch(error=>console.log(error))
+    } catch (error) {
+      console.log('error while approving the product',error);
+      alertFun('error','error while approving the product');
+    }
+
 }
 
   return (

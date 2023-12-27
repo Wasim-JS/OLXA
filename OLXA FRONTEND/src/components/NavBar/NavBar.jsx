@@ -63,7 +63,7 @@ const NavBar = () => {
           {
             isLoggedIn? (
               <>
-              <span style={{margin:"0px 10px",fontWeight:800}}>{user.role==='admin'?(`${user?.name} (Admin)`):(user?.name)}</span>
+              <span style={{margin:"0px 10px",fontWeight:800}}>{user?.role==='admin'?(`${user?.name} (Admin)`):(user?.name)}</span>
             <ProfileImage pimage={user?.avatar[0]?.cloudLink}/>
               </>
             ) : (

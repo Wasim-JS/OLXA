@@ -8,7 +8,7 @@ import fs from 'fs'
 export const register = asyncErrorHandler(async(req,res,next)=>{
 
     const {name,email,password,secret,phone,city,state,country} = req.body;
-    console.log(req.body)
+  
 
     if(
         [name,email,password,secret,phone,city,state,country].some(field=> field === "")

@@ -28,7 +28,7 @@ export async function fetchProductBasedOnId(id) {
     console.log(error);
   }
 }
-export async function clearAllNotifications(num) {
+export async function clearAllNotifications() {
 
  
   try {
