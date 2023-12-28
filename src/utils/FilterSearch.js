@@ -43,7 +43,7 @@ class FilterSearch {
     {
          
         let citySearch ={}
-        if(city !=="",street!="")
+        if(city !==""&&street!="")
         {
 
              citySearch = {city: { $regex: new RegExp(city, 'ig')},street:{ $regex: new RegExp(street, 'ig')}}
