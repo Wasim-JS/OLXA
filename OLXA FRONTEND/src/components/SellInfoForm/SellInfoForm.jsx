@@ -185,9 +185,9 @@ const SellInfoForm = () => {
             >
               <MenuItem value={formData.category}></MenuItem>
               <MenuItem value={""}>None</MenuItem>
-              <MenuItem value={"mobile"}>Mobiles</MenuItem>
-              <MenuItem value={"car"}>Cars</MenuItem>
-              <MenuItem value={"bike"}>Bikes</MenuItem>
+              <MenuItem value={"mobiles"}>Mobiles</MenuItem>
+              <MenuItem value={"cars"}>Cars</MenuItem>
+              <MenuItem value={"bikes"}>Bikes</MenuItem>
             </Select>
           </FormControl>
 

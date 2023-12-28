@@ -11,6 +11,7 @@ import {
   getFilterProducts,
   getProductBasedOnId,
   getProductRelatedToUser,
+  soldProduct,
 } from "../controllers/productControllers.js";
 
 import { upload } from "../utils/HandleImageUpload.js";
@@ -57,6 +58,13 @@ router.patch(
   tokenMiddleWare,
   checkIsAdmin,
   approveProduct
+);
+
+//make Product Sold Api
+router.get(
+  "/sold-product/:id",
+  tokenMiddleWare,
+  soldProduct
 );
 
 // get product Based on Id Api

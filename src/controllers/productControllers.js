@@ -81,15 +81,17 @@ export const getProductBasedOnId = asyncErrorHandler(async (req, res, next) => {
 });
 
 export const getFilterProducts = asyncErrorHandler(async (req, res, next) => {
-  let { keyword, gt, lt, page } = req.query;
+  let { keyword, gt=0, lt=0, page,city="",street="" } = req.query;
   gt = Number(gt);
   lt = Number(lt);
   page = Number(page);
-  console.log(keyword, gt, lt, page);
+
+  console.log(keyword, gt, lt, page,city,street);
 
   const countOf = new FilterSearch(productModel)
     .keywordSearch(keyword)
-    .priceSearch(gt, lt);
+    .priceSearch(gt, lt)
+    .cityAndSteetSearch(city,street)
 
   const productCount = await productModel.countDocuments(countOf.queryString);
 
@@ -97,6 +99,7 @@ export const getFilterProducts = asyncErrorHandler(async (req, res, next) => {
   const queryData = new FilterSearch(productModel)
     .keywordSearch(keyword)
     .priceSearch(gt, lt)
+    .cityAndSteetSearch(city,street)
     .setLimit(noOfrecords, page);
 
   const filterProducts = await queryData.query;
@@ -280,8 +283,29 @@ export const approveProduct = asyncErrorHandler(async (req, res, next) => {
         message: "Product Approved Successfully",
       });
 
+})
+
+export const soldProduct = asyncErrorHandler(async (req, res, next) => {
+
+  const { id } = req.params;
+
+ await productModel.findByIdAndUpdate(id,
+
+  {
+      $set:{
+          sold:'yes'
+      }
+  },
+  {
+      new:true
+  }
+
+  )
 
 
-
+  return res.status(200).json({
+    success: true,
+    message: "Congrulations.. You Sold Your Product Successfully..",
+  });
 
 })

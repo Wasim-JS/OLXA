@@ -71,7 +71,7 @@ const ShowOneProduct = () => {
               ))}
             </Carousel>
             <p style={{ textAlign: "center", fontWeight: 800 }}>
-              Click on Images For Better Views
+             &lt;- Click on Images For Better Views -&gt;
             </p>
           </div>
         </section>
@@ -88,7 +88,7 @@ const ShowOneProduct = () => {
             
             {
              
-              (user?._id !== product?.owner?._id && flag === -1 && user?.role !=='admin' && product?.approved === true) &&  <ShowBid productId={product._id} fetchProduct={fetchProduct}>
+              (user?._id !== product?.owner?._id && flag === -1 && user?.role !=='admin' && product?.approved === true && product?.sold !=="yes") &&  <ShowBid productId={product._id} fetchProduct={fetchProduct}>
               <button className="raise-bid-btn" style={{ margin: 20 ,cursor:"pointer"}}>
                 <TbHammer /> Raise a Bid
               </button>
@@ -109,12 +109,17 @@ const ShowOneProduct = () => {
                     />
                   ))
             ):(
+              product?.sold !== 'yes'?(
                 <div>No Bids Raised Yet....</div>
+              ):(
+                <div style={{fontWeight:800,fontFamily:"sans-serif"}}>This Product is Already Sold</div>
+              )
+                
             )
               }
 
               {
-                (product?.bids?.length ===0 && user?.role !=='admin' && user?._id !== product?.owner?._id && product?.approved === false ) && <p style={{fontWeight:600,fontFamily:"sans-serif",margin:"10px 0px"}}>&#34;You Can Raise a Bid Once the Product Get Approved&#34;</p>
+                (product?.bids?.length ===0 && user?.role !=='admin' && user?._id !== product?.owner?._id && product?.approved === false && product?.sold !=="yes") && <p style={{fontWeight:600,fontFamily:"sans-serif",margin:"10px 0px"}}>&#34;You Can Raise a Bid Once the Product Get Approved&#34;</p>
               }
           </div>
         </div>

@@ -3,15 +3,18 @@ import Layout from '../../components/Layout/Layout'
 import TextField from '@mui/material/TextField';
 import axios from 'axios'
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import useAlert from '../../Custom Hooks/alert';
 
 
 
+
 const Register = () => {
+  const navigate = useNavigate()
   const [registerData,setRegisterData]=useState({name:"",email:"",phone:"",password:"",secret:"",country:"",state:"",city:""})
   const [alertFun] = useAlert()
+
 
   const registerHandler = ({target}) =>{
     setRegisterData(prev=>({...prev,[target.name]:target.value}))
@@ -34,6 +37,7 @@ const Register = () => {
       const register = await axios.post('/api/v1/auth/register',{name,email,password,secret,phone,city,state,country})
       const res = register.data;
       alertFun('success',res.message)
+      navigate('/login')
       
     } catch (error) {
       alertFun('error',error.response.data.message)

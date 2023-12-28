@@ -7,19 +7,21 @@ import SearchProducts from '../../components/SearchProducts/SearchProducts';
 import  Pagination from '../../components/Pagination/PaginationComp'
 import { useRef } from 'react';
 import { fetchFiltredProducts } from '../../utiles/FiltredProducts';
+import useAlert from '../../Custom Hooks/alert';
 
 const SearchPage = () => {
   const location = useLocation();
   const[searchResult,setSearchResult]=useState([])
   const[perPage,setPerPage]=useState(1)
   const[searchLoading,setSearchLoading]=useState(false)
+  const [alertFun] = useAlert();
   console.log("searchResult is ",searchResult)
 
-  const min = useRef(null)
-  const max = useRef(null)
+  const min = useRef("")
+  const max = useRef("")
 
-  const city = useRef(null)
-  const street = useRef(null)
+  const city = useRef("")
+  const street = useRef("")
 
   const [showSideBar,setShowSideBar] = useState(false)
   const queryParams = new URLSearchParams(location.search);
@@ -47,8 +49,15 @@ const SearchPage = () => {
   function setAllData(data){
 
     setTimeout(()=>{
-        setSearchResult(data.products)
-        setPerPage((data.total/data.totalProductsFetched))
+      let perPages = 0
+      console.log(`per pafe is ${data?.total} ${data?.totalProductsFetched}`)
+      if(data?.totalProductsFetched !== 0)
+      {
+          perPages = (data?.total/data?.totalProductsFetched)
+      }
+      perPages = Math.ceil(perPages)
+        setSearchResult(data?.products)
+        setPerPage(perPages)
         setSearchLoading(false)
 
     },1500)
@@ -65,17 +74,42 @@ const SearchPage = () => {
   }
   const handleLocationSearchBtn = () =>{
     
-      console.log(city.current.value)
-      console.log(street.current.value)
+      console.log("Loctiom ",city.current.value)
+      console.log("Loctiom ",street.current.value)
+      setSearchLoading(true)
+      fetchFiltredProducts(paramValue,min.current.value,max.current.value,1,city.current.value,street.current.value).then(data=>{
+        setAllData(data)
+      }).catch(err=>console("error in fetching filtred records ",err))
   }
 
   const getPageNumber = (num) =>{
     setSearchLoading(true)
-        fetchFiltredProducts(paramValue,0,0,num).then(data=>{
+        fetchFiltredProducts(paramValue,0,0,num,city.current.value,street.current.value).then(data=>{
           setAllData(data)
         }).catch(err=>console("error in fetching filtred records ",err))
   }
+ 
+   const handleMinMax = () =>{
+  
+    if(isNaN(min.current.value) || isNaN(max.current.value))
+    {
+      return alertFun('error','Invalid Min or Max')
+    }
+    console.log("Loctiom ",city.current.value)
+      console.log("Loctiom ",street.current.value)
+    console.log(`params ${paramValue}`)
+    setSearchLoading(true)
+        fetchFiltredProducts(paramValue,min.current.value,max.current.value,1).then(data=>{
+          setAllData(data)
+        }).catch(err=>console("error in fetching filtred records ",err))
+   }
 
+   const handleClearFilters = () =>{
+      min.current.value = ""
+      max.current.value = ""
+      city.current.value = ""
+      street.current.value = ""
+   }
   
   return (
     <Layout>
@@ -89,7 +123,9 @@ const SearchPage = () => {
                       <span>To</span>
                       <input ref={max} placeholder='Max' type="text" name="" id="" />
                  </div>
-
+                      <button style={{border:"none",backgroundColor:"crimson",color:"white",padding:5,borderRadius:10,margin:"10px 0px"}} onClick={handleMinMax}>Search</button>
+                
+                <hr />
               <div className='sortBy'>
                 <h4>Sort</h4>
                 <div>
@@ -104,13 +140,15 @@ const SearchPage = () => {
 
                 </div>
               </div>
-
+         <hr />
               <div className='slocation' onKeyDown={handleLocationSearch}>
                 <h4>Search In Your City and Street</h4>
                      <input ref={city} type="text" placeholder='Enter City'/>
                      <input ref={street} type="text" placeholder='Enter Street' />
                      <button onClick={handleLocationSearchBtn}>Search</button>
               </div>
+
+              <button style={{border:"none",backgroundColor:"crimson",color:"white",padding:5,borderRadius:10,margin:"10px 0px"}} onClick={handleClearFilters}>Clear Filters</button>
             </div>
             <div className="search-right">
                <div className='searchBtn' onClick={sideBarShow}>

@@ -15,6 +15,7 @@ import useAlert from '../../Custom Hooks/alert';
 import { allProducts } from '../../utiles/FetchReletedRecords';
 import { addProducts } from '../../redux-store/productsSlice';
 import {useDispatch} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
 
 
 
@@ -42,6 +43,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   
 
 const ApproveTable = () => {
+  const navigate = useNavigate()
     const dispatch = useDispatch()
     const product = useSelector(state=>state.product)
     const proToApprove = product?.productsData.filter(product =>product.approved === false)
@@ -91,6 +93,7 @@ const handleApprove = async (id) =>{
             <StyledTableCell align="right">Status</StyledTableCell>
             <StyledTableCell align="right">Approve</StyledTableCell>
             <StyledTableCell align="right">Delete</StyledTableCell>
+            <StyledTableCell align="right">Go To Product</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -106,6 +109,7 @@ const handleApprove = async (id) =>{
                         <StyledTableCell align="right">{product?.approved===false?"pending":"approved"}</StyledTableCell>
                         <StyledTableCell align="right"><button className='appr-btn' onClick={()=>handleApprove(product?._id)}>Approve <span><MdDoneOutline /></span></button></StyledTableCell>
                         <StyledTableCell align="right"><button className='appr-btn' onClick={()=>handleDelete(product?._id)}><MdDeleteOutline size={25} /></button></StyledTableCell>
+                        <StyledTableCell align="right"><button className='appr-btn' onClick={()=>navigate(`/product/${product?._id}`)}>View Product</button></StyledTableCell>
                   </StyledTableRow>
                 ))
             ):(
