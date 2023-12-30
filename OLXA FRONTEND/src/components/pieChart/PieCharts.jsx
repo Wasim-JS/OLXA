@@ -3,11 +3,12 @@ import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
 
 
 const PieCharts = ({dataToShow}) => {
+  console.log("cat data :",dataToShow)
 
-  const data = dataToShow.map((data,i)=>({ id: i, value: data.value, label: data.label }))
+  const data = dataToShow?.map((data,i)=>({ id: i, value: data.value, label: data.label }))
 
   const size = {
-    width: 400,
+    width: 500,
     height: 300,
   };
   return (

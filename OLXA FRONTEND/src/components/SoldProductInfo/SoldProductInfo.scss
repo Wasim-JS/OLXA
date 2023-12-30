@@ -18,6 +18,16 @@
         position: absolute;
         right: 10px;
         top: 10px;
+        
+        // display: flex;
+        // gap: 10px;
+        @include small-screen {
+           
+            right: 380px;
+            top: 170px;
+         
+            
+        }
 
         >button{
             background-color: crimson;
@@ -33,6 +43,8 @@
         position: absolute;
         right: 10px;
         top: 10px;
+        display: flex;
+        gap: 10px;
 
         >button{
             background-color: gray;

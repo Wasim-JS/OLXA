@@ -29,6 +29,7 @@ const SearchPage = () => {
   console.log("paramValue ",paramValue)
  
           useEffect(()=>{
+            handleClearFilters()
             fetchFiltredProducts(paramValue,0,0,1).then(data=>{
               setSearchLoading(true)
               setAllData(data)
@@ -99,12 +100,12 @@ const SearchPage = () => {
       console.log("Loctiom ",street.current.value)
     console.log(`params ${paramValue}`)
     setSearchLoading(true)
-        fetchFiltredProducts(paramValue,min.current.value,max.current.value,1).then(data=>{
+        fetchFiltredProducts(paramValue,min.current.value,max.current.value,1,city.current.value,street.current.value).then(data=>{
           setAllData(data)
         }).catch(err=>console("error in fetching filtred records ",err))
    }
 
-   const handleClearFilters = () =>{
+   function handleClearFilters (){
       min.current.value = ""
       max.current.value = ""
       city.current.value = ""
@@ -126,7 +127,7 @@ const SearchPage = () => {
                       <button style={{border:"none",backgroundColor:"crimson",color:"white",padding:5,borderRadius:10,margin:"10px 0px"}} onClick={handleMinMax}>Search</button>
                 
                 <hr />
-              <div className='sortBy'>
+              {/* <div className='sortBy'>
                 <h4>Sort</h4>
                 <div>
 
@@ -139,7 +140,7 @@ const SearchPage = () => {
                   </select>
 
                 </div>
-              </div>
+              </div> */}
          <hr />
               <div className='slocation' onKeyDown={handleLocationSearch}>
                 <h4>Search In Your City and Street</h4>

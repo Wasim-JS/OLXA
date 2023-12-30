@@ -12,21 +12,21 @@ const AdminPage = () => {
     },[])
     const product = useSelector(state=>state.product)
     console.log("product from admin ",product?.productsData)
-    const category = [...new Set(product?.productsData.map(data=> data.category))].reduce((acc,next)=>{
+    const category = product?.productsData.map(data=> data.category).reduce((acc,next)=>{
           
         let index = acc?.findIndex(chartData=>chartData?.label === next)
+        console.log("index ",index);
         if(index !== -1)
         {
              acc[index].value += 1
         }
         else{
-            let ChartDataToAdd = { 
-                label:next.toUpperCase(),
+            acc.push({ 
+                label:next,
                 value:1
-            }
-
-            acc.push(ChartDataToAdd)
+            })
         }
+        console.log("acc after ",acc)
         return acc;
 
     },[])

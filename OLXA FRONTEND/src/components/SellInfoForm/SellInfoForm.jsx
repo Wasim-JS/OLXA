@@ -14,6 +14,8 @@ import {useDispatch, useSelector} from 'react-redux'
 import axios from "axios";
 import { allProducts } from "../../utiles/FetchReletedRecords";
 import { addProducts } from "../../redux-store/productsSlice";
+import { FaRegImages } from "react-icons/fa6";
+
 
 const SellInfoForm = () => {
   const dispatch = useDispatch()
@@ -231,7 +233,8 @@ const SellInfoForm = () => {
             variant="contained"
             color="main"
           >
-            Upload Images
+            Upload Images <span style={{marginLeft:10}}><FaRegImages size={25}/></span>
+
           </Button>
         </>
       ) : (

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import {formatter} from '../../utiles/showMoney'
 import axios from 'axios';
 import useAlert from '../../Custom Hooks/alert';
+import { RxCross1 } from "react-icons/rx";
+import { MdFileDownloadDone } from "react-icons/md";
 
 
 const SoldProductInfo = ({fetchReletedProducts,name,sold,product,year,price,img,desc,approved}) => {
@@ -27,7 +29,10 @@ const SoldProductInfo = ({fetchReletedProducts,name,sold,product,year,price,img,
   return (
     <div className='product'>
       <div className={`${sold !== "yes"?"soldBtn":"aSoldBtn"}`}>
-           <button disabled={sold === "yes"} onClick={()=>handleSold()}>Sold</button>
+        {
+         approved && <button disabled={sold === "yes"} onClick={()=>handleSold()}>Sold</button>
+
+        }
       </div>
       <div className='process-bar'>
         <ProcessBar approved={approved} />
@@ -40,6 +45,14 @@ const SoldProductInfo = ({fetchReletedProducts,name,sold,product,year,price,img,
              <p><span className="heading">Year:</span><span> {year}</span></p>
              <p><span className="heading">Price:</span><span>{String(formatter.format(price))?.split(".")[0]}</span></p>
              <p className='desc'><span className="heading">Description:</span><span>{desc}</span></p>
+             {
+              approved?(
+                <p style={{fontSize:13,color:"gray",display:'flex',alignItems:"center",gap:5}}>This is a approved product <MdFileDownloadDone size={20} color='black' /></p>
+              ):(
+                <p style={{fontSize:13,color:"gray",display:'flex',alignItems:"center",gap:5}}>This product is not yet Approved <RxCross1 size={20} color='black' /></p>
+              )
+          
+             }
         </div>
     </div>
   )

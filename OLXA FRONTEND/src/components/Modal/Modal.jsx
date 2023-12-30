@@ -76,7 +76,9 @@ const Modals = ({children}) => {
 
                 <div key={noti._id} className='show-noti'>
                    <p>{noti.notificationDesc}</p>
-                   <p className='view-link'><Link to={`/product/${noti?.gotoProduct}`}>View Product</Link></p>
+                   {
+                    noti?.gotoProduct!=="" && <p className='view-link'><Link to={`/product/${noti?.gotoProduct}`}>View Product</Link></p>
+                   }
                 </div>
            ))
             ):(

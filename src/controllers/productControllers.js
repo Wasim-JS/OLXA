@@ -237,7 +237,23 @@ export const deleteProduct = asyncErrorHandler(async (req, res, next) => {
       });
 
 
+
+      const productOwner = await registerModel.findById(product?.owner)
+
+
+      productOwner.noOfNotifications += 1;
+     let notificationToAdd = {
+       notificationDesc: `Your Product ${product?.name} is Rejected and deleted by Admin`,
+       gotoProduct: "",
+     };
+     console.log("notificationToAdd " + notificationToAdd);
+     productOwner.notifications.push(notificationToAdd);
+     await productOwner.save({ validateBeforeSave: false });
+
       await productModel.findByIdAndDelete(id)
+
+
+    
 
       return res.status(200).json({
         success: true,
