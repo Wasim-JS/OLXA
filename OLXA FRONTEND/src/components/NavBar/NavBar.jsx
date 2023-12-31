@@ -22,6 +22,7 @@ const NavBar = () => {
   const paramValue = queryParams.get('keyword') || ""
   const [alertFunc] = useAlert()
   const audio = new Audio(audios)
+  const [voiceSearch,setVoiceSearch] = useState(false);
 
   const {isLoggedIn} = useSelector(state=>state.user)
   const [keyword,setKeyword] = useState("")
@@ -42,6 +43,7 @@ const NavBar = () => {
 
   rec.onend = () => {
     console.log('stopped');
+    setVoiceSearch(false)
     alertFunc('warning',"Listining Ended....")
   };
 
@@ -51,6 +53,13 @@ const NavBar = () => {
     
     
   };
+
+  const handleVoiceSearch = () =>{
+
+    rec.start()
+    setVoiceSearch(true)
+
+  }
  
   const handleSearch = (e) =>{
     if(e.key === "Enter")
@@ -84,7 +93,7 @@ const NavBar = () => {
           isLoggedIn && <div className='serachBar' >
           <BsSearch color='white' />
              <input value={keyword} onChange={({target})=> setKeyword(target.value) } placeholder='Search Products Here.....'  onKeyDown={handleSearch} type="text" name="" id="" />
-             <button title='click and speak' id='vbtn' onClick={()=>rec.start()}><FaMicrophoneAlt size={25} color='white'/></button>
+             <button title='click and speak' className={`${voiceSearch?"vbtns":""}`} id='vbtn' onClick={handleVoiceSearch}><FaMicrophoneAlt size={25} color='white'/></button>
           </div>
            }
           

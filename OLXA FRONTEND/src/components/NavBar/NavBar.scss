@@ -119,14 +119,35 @@ header{
         gap: 5px;
         transition: all 0.3s linear;
 
+        .vbtns{
+
+
+            &::before{
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: rgb(48, 46, 46);
+                border-radius: 50%;
+                transform: scale(0);
+                z-index: -1;
+                animation: voiceMic 0.4s linear infinite;
+           }
+
+        }
+
         #vbtn{
             background-color: transparent;
             border: none;
             cursor: pointer;
             margin-right: 5px;
+            position: relative;
+            z-index: 2;
             &:hover{
                 transform: scale(1.1);
             }
+
+         
         }
         @include small-screen {
             margin-left: 5px;
@@ -164,3 +185,12 @@ header{
 
 }
 
+
+@keyframes voiceMic {
+
+    100%{
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    
+}
