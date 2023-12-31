@@ -6,6 +6,13 @@ import SideBar from '../SideBar/SideBar'
 import SpeedDail from '../Speed Dail/SpeedDail';
 import {useSelector} from 'react-redux'
 import { useEffect, useState } from 'react';
+import { FaMicrophoneAlt } from "react-icons/fa";
+import useVoiceSearch from '../../Custom Hooks/useVoiceSearch';
+import useAlert from '../../Custom Hooks/alert';
+import audios from '../../assets/a.mp3'
+
+
+
 
 
 const NavBar = () => {
@@ -13,9 +20,12 @@ const NavBar = () => {
   const {user} = useSelector(state=>state.user)
   const queryParams = new URLSearchParams(location.search);
   const paramValue = queryParams.get('keyword') || ""
+  const [alertFunc] = useAlert()
+  const audio = new Audio(audios)
 
   const {isLoggedIn} = useSelector(state=>state.user)
   const [keyword,setKeyword] = useState("")
+  const [rec] = useVoiceSearch();
 
   useEffect(()=>{
     const queryParams = new URLSearchParams(location.search);
@@ -24,6 +34,24 @@ const NavBar = () => {
     
     
   },[paramValue])
+
+  rec.onstart = () => {
+    audio.play()
+    alertFunc('success',"Listining.....")
+  };
+
+  rec.onend = () => {
+    console.log('stopped');
+    alertFunc('warning',"Listining Ended....")
+  };
+
+  rec.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    navigate(`/search?keyword=${transcript}`)
+    
+    
+  };
+ 
   const handleSearch = (e) =>{
     if(e.key === "Enter")
     {
@@ -56,6 +84,7 @@ const NavBar = () => {
           isLoggedIn && <div className='serachBar' >
           <BsSearch color='white' />
              <input value={keyword} onChange={({target})=> setKeyword(target.value) } placeholder='Search Products Here.....'  onKeyDown={handleSearch} type="text" name="" id="" />
+             <button title='click and speak' id='vbtn' onClick={()=>rec.start()}><FaMicrophoneAlt size={25} color='white'/></button>
           </div>
            }
           

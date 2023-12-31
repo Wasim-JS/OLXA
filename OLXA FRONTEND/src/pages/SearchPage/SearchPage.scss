@@ -191,6 +191,7 @@
         transition: all 0.3s linear;
         box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.3);
         background-color: skyblue;
+        cursor: pointer;
         z-index: 999;
         &:active{
             transform: scale(0.9);
