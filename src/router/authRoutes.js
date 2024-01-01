@@ -1,5 +1,5 @@
 import express from 'express'
-import { changePassword, forgetPassword, login, logout, register, uplaodProfilePic, userInfo } from '../controllers/authControllers.js'
+import { changePassword, editProfile, forgetPassword, login, logout, register, uplaodProfilePic, userInfo } from '../controllers/authControllers.js'
 import { tokenMiddleWare } from '../middlewares/authMiddleware.js'
 import { upload } from '../utils/HandleImageUpload.js'
 
@@ -26,5 +26,8 @@ router.get('/logout',logout)
 
 // change Password Api
 router.post('/change-password',tokenMiddleWare,changePassword)
+
+//edit profile
+router.patch('/edit-profile',tokenMiddleWare,editProfile)
 
 export default router;

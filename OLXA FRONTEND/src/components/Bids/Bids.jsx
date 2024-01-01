@@ -70,7 +70,10 @@ const Bids = ({bid,productId,fetchProduct,productOwner}) => {
     }
   return (
     <div className='singleBid'>
-        <div className='del-bid'><MdDelete onClick={()=>handelDeleteBid(bid?._id)} size={20} /></div>
+      {
+        (user?._id=== productOwner?._id || user?._id === bid?.bidder?._id) && <div className='del-bid'><MdDelete onClick={()=>handelDeleteBid(bid?._id)} size={20} /></div>
+
+      }
         <div className="bidder-img">
             <img src={bid?.bidder?.avatar?.[0].cloudLink} alt="" />
         </div>

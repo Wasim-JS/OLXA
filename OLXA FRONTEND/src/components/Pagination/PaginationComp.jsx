@@ -2,9 +2,18 @@ import Pagination from '@mui/material/Pagination';
 import './PaginationComp.scss'
 
 
-const PaginationComp = ({perPage,getPageNumber}) => {
+const PaginationComp = ({perPage,getPageNumber,page}) => {
+
+
+  const handlePage = ({target}) =>{
+    getPageNumber(target.innerText)
+    
+  }
+  
+  console.log("page data ",typeof page)
+
   return (
-    <Pagination count={perPage} onClick={({target})=>getPageNumber(target.innerText)} color="primary"/>
+    <Pagination page={Number(page)} count={perPage} onClick={handlePage} color="primary"/>
   )
 }
 

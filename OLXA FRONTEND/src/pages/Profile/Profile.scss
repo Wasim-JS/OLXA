@@ -10,7 +10,7 @@
 
   @include small-screen {
     flex-direction: column;
-    height: 450px;
+    height: auto;
   }
 
   .left {

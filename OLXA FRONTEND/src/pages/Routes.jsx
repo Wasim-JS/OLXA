@@ -16,6 +16,7 @@ import Home2 from "./Home2/Home2";
 import PageNotFound from "./404 Page/PageNotFound";
 import ChangePassword from "./ChangePassword/ChangePassword";
 import AdminPage from "./Admin Dashboard/AdminPage";
+import ProfileEdit from "./Profile Edit/ProfileEdit";
 
 export const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -39,6 +40,7 @@ export const routes = createBrowserRouter(
         <Route path="/home2" element={<Home2/>} />
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/edit-profile" element={<ProfileEdit />} />
       </Route>
         <Route path="*" element={<PageNotFound/>} />
     </>

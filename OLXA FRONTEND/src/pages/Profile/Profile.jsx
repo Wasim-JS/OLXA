@@ -11,8 +11,12 @@ import useAlert from "../../Custom Hooks/alert";
 import { sendToken } from "../../utiles/userFetch";
 import {useDispatch} from 'react-redux'
 import { updateUserDataOnLogin } from "../../redux-store/userSlice";
+import { useNavigate } from "react-router-dom";
+import { FaUserEdit } from "react-icons/fa";
+
 
 const Profile = () => {
+  const navigate = useNavigate()
   const {user} = useSelector(state=>state.user)
   const [file, setFile] = useState(null);
   const [alertFun] = useAlert()
@@ -102,6 +106,7 @@ const Profile = () => {
               <span>City: </span> <span className="data">{user?.city}</span>
             </p>
            
+          <button onClick={()=>navigate('/edit-profile')} style={{borderRadius:10,backgroundColor:"crimson",color:"white",padding:5,border:"none",display:"flex",alignItems:"center",justifyContent:'center',gap:5}}>Edit <span><FaUserEdit size={18} /></span></button>
           </div>
         </div>
       </div>

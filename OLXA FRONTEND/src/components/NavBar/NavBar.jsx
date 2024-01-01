@@ -44,7 +44,6 @@ const NavBar = () => {
   rec.onend = () => {
     console.log('stopped');
     setVoiceSearch(false)
-    alertFunc('warning',"Listining Ended....")
   };
 
   rec.onresult = (event) => {

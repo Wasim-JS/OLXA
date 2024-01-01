@@ -11,6 +11,7 @@ import useAlert from '../../Custom Hooks/alert';
 
 const SearchPage = () => {
   const location = useLocation();
+  const[page,setPage]=useState(1)
   const[searchResult,setSearchResult]=useState([])
   const[perPage,setPerPage]=useState(1)
   const[searchLoading,setSearchLoading]=useState(false)
@@ -32,6 +33,7 @@ const SearchPage = () => {
             handleClearFilters()
             fetchFiltredProducts(paramValue,0,0,1).then(data=>{
               setSearchLoading(true)
+              setPage(1)
               setAllData(data)
             }).catch(err=>console("error in fetching filtred records ",err))
 
@@ -50,6 +52,7 @@ const SearchPage = () => {
   function setAllData(data){
 
     setTimeout(()=>{
+      
       let perPages = 0
       console.log(`per pafe is ${data?.total} ${data?.totalProductsFetched}`)
       if(data?.totalProductsFetched !== 0)
@@ -77,33 +80,57 @@ const SearchPage = () => {
     
       console.log("Loctiom ",city.current.value)
       console.log("Loctiom ",street.current.value)
+
+      if(city.current.value ==="" || street.current.value=== "" ) return alertFun('error','both city and street are requried')
       setSearchLoading(true)
       fetchFiltredProducts(paramValue,min.current.value,max.current.value,1,city.current.value,street.current.value).then(data=>{
+        setPage(1)
         setAllData(data)
       }).catch(err=>console("error in fetching filtred records ",err))
   }
 
   const getPageNumber = (num) =>{
+    
     setSearchLoading(true)
         fetchFiltredProducts(paramValue,0,0,num,city.current.value,street.current.value).then(data=>{
+          setPage(num)
           setAllData(data)
         }).catch(err=>console("error in fetching filtred records ",err))
   }
  
    const handleMinMax = () =>{
+
+
+    if(min.current.value ==="" || max.current.value=== "" ) return alertFun('error','both min and max are requried')
+
   
     if(isNaN(min.current.value) || isNaN(max.current.value))
     {
       return alertFun('error','Invalid Min or Max')
     }
+
+
     console.log("Loctiom ",city.current.value)
       console.log("Loctiom ",street.current.value)
     console.log(`params ${paramValue}`)
     setSearchLoading(true)
         fetchFiltredProducts(paramValue,min.current.value,max.current.value,1,city.current.value,street.current.value).then(data=>{
+          setPage(1)
           setAllData(data)
         }).catch(err=>console("error in fetching filtred records ",err))
    }
+
+     function handleGetAll(){
+      handleClearFilters();
+
+      fetchFiltredProducts(paramValue,0,0,1,"","").then(data=>{
+        setPage(1)
+        setSearchLoading(true)
+        setAllData(data)
+      }).catch(err=>console("error in fetching filtred records ",err))
+
+
+     }
 
    function handleClearFilters (){
       min.current.value = ""
@@ -150,6 +177,7 @@ const SearchPage = () => {
               </div>
 
               <button style={{border:"none",backgroundColor:"crimson",color:"white",padding:5,borderRadius:10,margin:"10px 0px"}} onClick={handleClearFilters}>Clear Filters</button>
+              <button style={{border:"none",backgroundColor:"crimson",color:"white",padding:5,borderRadius:10,margin:"10px 0px",display:"block"}} onClick={handleGetAll}>Get All</button>
             </div>
             <div className="search-right">
                <div className='searchBtn' onClick={sideBarShow}>
@@ -222,7 +250,7 @@ const SearchPage = () => {
                 
                </div>
                <div className='pag'>
-                 <Pagination perPage={perPage} getPageNumber={getPageNumber}/>
+                 <Pagination page={page} perPage={perPage} getPageNumber={getPageNumber}/>
                </div>
 
                

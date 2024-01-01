@@ -180,3 +180,24 @@ export const changePassword = asyncErrorHandler(async(req,res,next)=>{
         })
 
 })
+
+export const editProfile = asyncErrorHandler(async(req,res,next)=>{
+
+    const user = await registerModel.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set:req.body
+            
+        },
+        {
+            new:true
+        }
+    )
+
+    
+    return res.status(200).json({
+        success:true,
+        message:"Profile Updated Successfully"
+    })
+
+})

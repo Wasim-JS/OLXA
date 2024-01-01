@@ -109,17 +109,16 @@ const ShowOneProduct = () => {
                     />
                   ))
             ):(
-              product?.sold !== 'yes'?(
-                <div>No Bids Raised Yet....</div>
-              ):(
-                <div style={{fontWeight:800,fontFamily:"sans-serif"}}>This Product is Already Sold</div>
-              )
-                
+                <div>No Bids Raised Yet....</div> 
             )
               }
 
               {
                 (product?.bids?.length ===0 && user?.role !=='admin' && user?._id !== product?.owner?._id && product?.approved === false && product?.sold !=="yes") && <p style={{fontWeight:600,fontFamily:"sans-serif",margin:"10px 0px"}}>&#34;You Can Raise a Bid Once the Product Get Approved&#34;</p>
+              }
+              {
+                product?.sold === "yes" && <div style={{fontWeight:800,fontFamily:"sans-serif",color:"crimson"}}>This Product is Already Sold</div>
+
               }
           </div>
         </div>
